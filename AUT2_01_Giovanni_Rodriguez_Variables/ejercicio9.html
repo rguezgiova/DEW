@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 9</title>
+    <script>
+        var mes = prompt("Introduce un mes");
+        var anio = prompt("Introduce un año");
+        mesAnterior = parseInt(mes) - 1;
+        mesSiguiente = parseInt(mes) + 1;
+        if (mesAnterior === 0) {
+            mesAnterior = 12;
+            anioAnterior = parseInt(anio) - 1;
+            console.log("El mes anterior es: " + mesAnterior + "/" + anioAnterior + " y el mes posterior es: " + mesSiguiente + "/" + anio);
+        } else if (mesSiguiente === 13) {
+            mesSiguiente = 1;
+            anioSiguiente = parseInt(anio) + 1;
+            console.log("El mes anterior es: " + mesAnterior + "/" + anio + " y el mes posterior es: " + mesSiguiente + "/" + anioSiguiente);
+        } else {
+            console.log("El mes anterior es: " + mesAnterior + "/" + anio + " y el mes posterior es: " + mesSiguiente + "/" + anio);
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+    <script>
+        function arrayAleatorio(elementos = 20, minimo = 50, maximo =100) {
+            let array = [];
+            let num = 0;
+            while(array.length < elementos) {
+                let calcularNum = Math.floor(Math.random() * maximo) + 1;
+                if (calcularNum > minimo) {
+                    num = calcularNum
+                } else {
+                    calcularNum;
+                }
+                if (array.indexOf(num) === -1) array.push(num);
+            }
+            array.sort(function(a, b) {
+                return a - b;
+            })
+            console.log(array);
+        }
+        arrayAleatorio();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

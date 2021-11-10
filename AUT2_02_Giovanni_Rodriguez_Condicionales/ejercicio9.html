@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 9</title>
+    <script>
+        let importe = prompt("Indica una cantidad de dinero:");
+        let valor = Array(500, 200, 100, 50, 20, 10, 5, 2, 1);
+        let cambio = Array(0,0,0,0,0,0,0,0,0);
+        for (let i = 0; i < valor.length; i++) {
+            if (importe >= valor[i]) {
+                cambio[i] = parseInt(importe / valor[i]);
+                importe = (importe - (cambio[i] * valor[i])).toFixed(2);
+            }
+        }
+        for (i = 0; i < valor.length; i++) {
+            if (cambio[i] > 0) {
+                if (valor[i] >= 5) {
+                    if (cambio[i] > 2) {
+                        console.log(cambio[i] + " billetes de " + valor[i] + "€");
+                    } else {
+                        console.log(cambio[i] + " billete de " + valor[i] + "€");
+                    }
+                } else {
+                    if (cambio[i] > 2) {
+                        console.log(cambio[i] + " monedas de " + valor[i] + "€");
+                    } else {
+                        console.log(cambio[i] + " moneda de " + valor[i] + "€");
+                    }
+                }  
+            }
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

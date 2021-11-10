@@ -1,0 +1,19 @@
+#contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr;
+    gap: 10px;
+}
+
+#pantalla {
+    background: linear-gradient(bottom, yellow, green) fixed;
+}
+
+#ventana {
+    background: linear-gradient(top, red, yellow) fixed;
+}
+
+#despedida {
+    color: white;
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%) fixed;
+}

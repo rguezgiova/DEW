@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="formularios.js" type="text/javascript"></script>
+	<title>ValidaciĂ³n Formulario</title>
+	<style type="text/css">
+		label {
+			width: 150px;
+			float: left;
+			margin-bottom: 5px;
+			clear: both;
+		}
+
+		input {
+			float: left;
+		}
+
+		input,
+		select {
+			width: 150px;
+			margin-bottom: 5px;
+		}
+
+		fieldset {
+			background-color: burlywood;
+			width: 350px;
+		}
+
+		.error {
+			border: solid 2px #ff0000;
+		}
+
+		#masculino, #femenino, #se, #asir, #daw, #dam, #pro, #ets, #fol, #dew, #dsw, #emr {
+			width: 10px;
+		}
+	</style>
+<body>
+	<fieldset>
+		<legend>Validar Formulario</legend>
+		<form method="get" name="formulario" id="formulario">
+			<table>
+				<tr>
+					<td><label for="nombre">Nombre:</label></td>
+					<td><input type="text" name="nombre" id="nombre" /></td>
+				</tr>
+				<tr>
+					<td><label for="apellidos">Apellidos:</label></td>
+					<td><input type="text" name="apellido" id="apellido" /></td>
+				</tr>
+				<tr>
+					<td><label for="sexo">Sexo:</label></td>
+					<td><label for="masculino">Masculino <input type="radio" name="sexo" id="masculino" value="masculino"></label></td>
+					<td><label for="femenino">Femenino <input type="radio" name="sexo" id="femenino" value="femenino"></label></td>
+					<td><label for="se">Sin especificar <input type="radio" name="sexo" id="se" value="se"></label></td>
+				</tr>
+				<tr>
+					<td><label for="edad">Edad:</label></td>
+					<td><input type="text" name="edad" id="edad" /></td>
+				</tr>
+				<tr>
+					<td><label for="color">Color favorito:</label></td>
+					<td><input type="color" name="color" id="color" /></td>
+				</tr>
+				<tr>
+					<td><button type="button" name="enviar" id="enviar" onclick="validarDatos()">Matricular</button></td>
+					<td><button type="reset" name="limpiar" id="limpiar">Limpiar</button></td>
+				</tr>
+			</table>
+		</form>
+		<form name="formularioCiclos" onchange="mostrarCursos()">
+			<table>
+				<tr>
+					<td><label for="">Ciclo:</label></td>
+					<td><input type="radio" name="ciclo" id="asir" value="asir"></td>
+					<td><label for="asir">ASIR</label></td>
+					<td><input type="radio" name="ciclo" id="daw" value="daw"></td>
+					<td><label for="daw">DAW</label></td>
+					<td><input type="radio" name="ciclo" id="dam" value="dam"></td>
+					<td><label for="dam">DAM</label></td>
+				</tr>
+			</table>
+		</form>
+		<form name="formularioCursos" id="formularioCursos" onchange="mostrarModulos()">
+			<table>
+				<tr>
+					<td><label for="">Curso:</label></td>
+					<td>
+						<select id="curso" name="cursos">
+							<option value="vacio" selected>-</option>
+							<option value="primero">Primero</option>
+							<option value="segundo">Segundo</option>
+						  </select>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<form name="formularioModulos" id="formularioModulos" action="">
+			<table>
+				<tr>
+					<td><label for="">Módulos:</label></td>
+					<td><input type="checkbox" name="modulos1" id="pro"></td>
+					<td><label for="pro" id="lblpro">PRO</label></td>
+					<td><input type="checkbox" name="modulos1" id="ets"></td>
+					<td><label for="ets" id="lblets">ETS</label></td>
+					<td><input type="checkbox" name="modulos1" id="fol"></td>
+					<td><label for="fol" id="lblfol">FOL</label></td>
+					<td><input type="checkbox" name="modulos2" id="dew"></td>
+					<td><label for="dew" id="lbldew">DEW</label></td>
+					<td><input type="checkbox" name="modulos2" id="dsw"></td>
+					<td><label for="dsw" id="lbldsw">DSW</label></td>
+					<td><input type="checkbox" name="modulos2" id="emr"></td>
+					<td><label for="emr" id="lblemr">EMR</label></td>
+				</tr>
+			</table>
+		</form>
+	</fieldset>
+	<p id="contador"></p>
+</body>
+</html>

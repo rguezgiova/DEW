@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 7</title>
+    <script>
+        function farenheitACelcius(farenheit) {
+            let unidad = true;
+            let temperaturaFarenheit = farenheit;
+            let conversionCelcius = (temperaturaFarenheit - 32) * 5 / 9;
+            let resultado = 0;
+            if (unidad === true) {
+                resultado = temperaturaFarenheit + "\xB0F es " + conversionCelcius + "\xB0C.";
+            } else {
+                resultado = temperaturaFarenheit + "\xB0F es " + conversionCelcius;
+            }
+            console.log(resultado);
+        } 
+        farenheitACelcius(32);
+        farenheitACelcius(75.2);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

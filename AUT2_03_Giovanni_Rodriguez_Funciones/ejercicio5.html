@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5</title>
+    <script>
+        function arrayAleatorio(elementos = 20, minimo = -100, maximo = 100) {
+            let array = [];
+            let mayor = [0];
+            let menor = [0];
+            let repetido = [];
+            let array2 = [...array].sort();
+            while(array.length < elementos) {
+                let num = Math.floor(Math.random() * minimo) + 1;
+                if (array.indexOf(num) === -1) array.push(num);
+            }
+            for (i = 0; i < array.length; i++) {
+                if (array[i] < menor) {
+                    menor = array[i];
+                }
+                if (mayor < array[i]) {
+                    mayor = array[i];
+                }
+            }
+            for (i = 0; i < array2; i++) {
+                if (array2[i + 1] === array2[i]) {
+                    repetido.push(array2[i]);
+                }
+            }
+            console.log("El numero mas pequeño es: " + menor);
+            console.log("El numero mas grande es: " + mayor);
+            console.log("El numero repetido es: " + repetido);
+        }
+        arrayAleatorio();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

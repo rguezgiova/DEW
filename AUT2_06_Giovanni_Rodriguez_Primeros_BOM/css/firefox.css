@@ -1,0 +1,30 @@
+#contenedor {
+    text-align: center;
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 10px;
+}
+
+#pantalla {
+    background: linear-gradient(yellow, green) fixed;
+    order: 2;
+}
+
+#ventana {
+    order: 1;
+    background: linear-gradient(red, yellow) fixed;
+}
+
+#pantalla h1 {
+    color: white;
+}
+
+#ventana h1 {
+    color: white;
+}
+
+#despedida {
+    color: white;
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%) fixed;
+}

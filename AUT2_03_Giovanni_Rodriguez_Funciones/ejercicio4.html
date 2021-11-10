@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4</title>
+    <script>
+        function arrayAleatorio(elementos = 15, minimo = -10, maximo = 20) {
+            let array = [];
+            
+            while(array.length < elementos) {
+                let num = Math.floor(Math.random() * maximo) + 1;
+                if (array.indexOf(num) === -1) array.push(num);
+            }
+            let duplicados = [...array];
+            duplicados.forEach(function(numero, index) {
+                if (numero === -5) {
+                    console.log("El numero es: " + numero);
+                    console.log("La operacion que se va a realizar es: eliminar el primer elemento.");
+                    array.shift();
+                    console.log("El tamaño del array es: " + array.length);
+                } else if (numero > -5 || numero <= 0) {
+                    console.log("El numero es: " + numero);
+                    console.log("La operacion que se va a realizar es: eliminar el ultimo elemento.");
+                    array.pop();
+                    console.log("El tamaño del array es: " + array.length);
+                } else if (numero > 0 || numero <= 10) {
+                    console.log("El numero es: " + numero);
+                    console.log("La operacion que se va a realizar es: añadir " + numero + " al principio.");
+                    array.unshift(numero);
+                    console.log("El tamaño del array es: " + array.length);
+                } else if (numero > 10 || numero <= 20) {
+                    console.log("El numero es: " + numero);
+                    console.log("La operacion que se va a realizar es: ");
+                    console.log("La operacion que se va a realizar es: añadir " + numero + " al final.");
+                    array.push(numero);
+                    console.log("El tamaño del array es: " + array.length);
+                }
+            })
+        }
+        arrayAleatorio();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

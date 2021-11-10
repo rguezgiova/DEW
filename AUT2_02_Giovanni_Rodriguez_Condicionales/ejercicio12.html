@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 12</title>
+    <script>
+        let nacimiento = prompt("Introduce tu fecha de nacimiento:");
+        let fecha = new Date(1998, 10, 05);
+        let fechaParseada = Date.parse(fecha);
+        let segundos = fecha.getTime();
+        let minutos = segundos / 60;
+        let horas = minutos / 60;
+        let dias = horas / 24;
+        console.log("Han pasado " + segundos + " segundos desde que naciste.");
+        console.log("Han pasado " + minutos + " minutos desde que naciste.");
+        console.log("Han pasado " + horas + " horas desde que naciste.");
+        console.log("Han pasado " + dias + " dias desde que naciste.");
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

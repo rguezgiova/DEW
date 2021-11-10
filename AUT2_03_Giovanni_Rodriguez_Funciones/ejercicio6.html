@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 6</title>
+    <script>
+        function arrayAleatorio(elementos = 50, minimo = 10, maximo = 20) {
+            let array = [];
+            let repetido = [];
+            let array2 = [...array].sort();
+            let contador = 0;
+            while(array.length < elementos) {
+                let num = Math.floor(Math.random() * maximo) + 1;
+                if (array.indexOf(num) === -1) array.push(num);
+            }
+            for (i = 0; i < array2; i++) {
+                if (array2[i + 1] === array2[i]) {
+                    repetido.push(array2[i]);
+                    contador = contador++;
+                }
+            }
+            console.log("El numero repetido es: " + repetido);
+            console.log("Y se repite: " + contador + " veces");
+        }
+        arrayAleatorio();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

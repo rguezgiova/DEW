@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+    <script>
+        let bola = new Object();
+        bola.coorX = 0;
+        bola.coorY = 0;
+        bola.velX = 0;
+        bola.velY = 0;
+        bola.color = "";
+        bola.tamanio = 0;
+
+        /*
+        * Funcion que genera las coordenadas de forma random de una bola
+        * y las muestra por consola
+        */
+        function dibuja() {
+            maximo = 600;
+            generarCorX = Math.floor(Math.random() * maximo);
+            generarCorY = Math.floor(Math.random() * maximo);
+            bola.coorX = generarCorX;
+            bola.coorY = generarCorY;
+            console.log("La coordenada X de la bola es: " + bola.coorX);
+            console.log("La coordenada Y de la bola es: " + bola.coorY);
+        }
+
+        dibuja();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

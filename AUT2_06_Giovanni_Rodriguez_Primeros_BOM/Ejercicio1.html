@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/Ejercicio1.css" type="text/css">
+    <title>Ejercicio 1</title>
+    <script>
+        let ventanaAbierta = null; 
+        function abrirVentanaGoogle(url, anchuraW, alturaW) {
+            let anchura = (screen.width - anchuraW / 2) - (anchuraW / 2);
+            let altura = (screen.height - alturaW / 2) - (alturaW / 2);
+            ventanaAbierta = window.open(url, "", "width" + anchura + ", height = " + altura);
+        }
+
+        function cerrarVentana() {
+            if (ventanaAbierta == null) {
+                alert("No hay ventana que cerrar");
+            } else {
+                ventanaAbierta.close();
+            }
+        }
+
+        function ampliarVentana() {
+            ventanaAbierta.resizeTo(ventanaAbierta.outerWidth + 30, ventanaAbierta.outerHeight + 30);
+        }
+
+        function reducirVentana() {
+            ventanaAbierta.resizeTo(ventanaAbierta.outerWidth - 30, ventanaAbierta.outerHeight - 30);
+        }
+
+        function moverVentana() {
+            posicionX = document.getElementById("posicionX").value;
+            posicionY = document.getElementById("posicionY").value;
+            ventanaAbierta.moveTo(posicionX, posicionY);
+        }
+    </script>
+</head>
+<body>
+    <h1>Ventana Principal</h1>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <button onclick="abrirVentanaGoogle('https://www.google.es', 400, 400)">Abrir Google</button>
+                </td>
+                <td>
+                    <button onclick="abrirVentanaGoogle('', 400, 400)">Nueva ventana</button>
+                </td>
+                <td>
+                    <button onclick="cerrarVentana()">Cerrar Ventana</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="ampliarVentana()">Ampliar</button>
+                </td>
+                <td>
+                    <button onclick="reducirVentana()">Reducir</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Indique posicion X:</label><input type="number" id="posicionX">
+                </td>
+                <td>
+                    <label>Indique posicion Y:</label><input type="number" id="posicionY">
+                    <button onclick="moverVentana()">Mover</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
