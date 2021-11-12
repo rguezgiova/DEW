@@ -14,7 +14,6 @@ function traer() {
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
             let respuesta = JSON.parse(request.responseText);
-            console.log(respuesta);
             for (let key in respuesta) {
                 crearElementos(respuesta[key].id, respuesta[key].name, respuesta[key].email, respuesta[key].username);
             }
