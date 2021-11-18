@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <button type="button" id="verTodas">Ver Todas las cookies</button>
+    <button type="button" id="crearCookie">Crear</button>
+    <button type="button" id="modificarCookie">Modificar</button>
+    <button type="button" id="leerCookie">Leer</button>
+    <button type="button" id="borrarCookie">Borrar</button>
+    <p id="cookies"></p>
+
+    <script>
+        document.getElementById("verTodas").addEventListener("click", verTodas);
+        document.getElementById("crearCookie").addEventListener("click", crearCookie);
+        document.getElementById("modificarCookie").addEventListener("click", crearCookie);
+        document.getElementById("leerCookie").addEventListener("click", leerCookie);
+        document.getElementById("borrarCookie").addEventListener("click", borrarCookie);
+        
+        
+         /***************************************************************
+         * Con esta función creamos una cookie con una fecha de caducidad
+         ***************************************************************/
+        function setCookie(cookieName,cookieValue,daysToExpire)
+        {
+          var date = new Date();
+          //tenemos que sumar a 'date' los MILISEGUNDOS que son los dias que quedemos que caduque
+          date.setTime(date.getTime()+(daysToExpire*24*60*60*1000)); 
+          document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toGMTString();
+        }
+        /*****************************************************
+         * Con esta función obtenermos el valor de una cookie 
+         *****************************************************/
+        function getCookie(cookieName)
+        {
+          var name = cookieName + "=";
+          console.log("hola");
+          //Creamos un array con las cookies
+          var allCookieArray = document.cookie.split(';');
+          //recorremos el array
+          for(var i=0; i<allCookieArray.length; i++)
+          {
+            //elimino espacios iniciales en blanco de la cookie
+            //y nos queda nombre=valor
+            var temp = allCookieArray[i].trim();
+            //infexok nos retorna la posición de "name" dentro de temp
+            //temp-> la cookie de la iteración
+            console.log(temp);
+            if (temp.indexOf(name)==0){
+                //en el caso que index devuelva 0 quiere decir que esta
+                // es la cookie y queremos devolver su valor que va desde
+                //  desde  name.length  a  temp.length
+                //por ejemplo: nombre2=Cookie2
+                //name.length(7)  a  temp.length(13)
+                return temp.substring(name.length,temp.length);
+            }
+            
+       	  }
+          return "";
+        }
+        /*****************************************************
+         * Con esta función borramos una cookie 
+         *****************************************************/
+        function deleteCookie(nombre){
+            setCookie(nombre, "", 0);
+        }
+        
+    </script>
+</body>
+</html>
