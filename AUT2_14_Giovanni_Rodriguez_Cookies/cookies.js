@@ -1,26 +1,53 @@
+/**
+ * Funcion que muestra todas las cookies creadas
+ */
 function verCookies() {
-    document.getElementById("ver").innerText = cookies = document.cookie; 
+    document.getElementById("ver").innerText = document.cookie;
 }
 
+/**
+ * Funcion para crear una cookie
+ * @param nombre de la cookie
+ * @param valor de la cokkie
+ * @param expira fecha en la que expira la cookie
+ */
 function crearCookie(nombre, valor, expira) {
     document.getElementById("crear").innerText = document.cookie = nombre + "=" + valor + "; expires =" + expira;
 }
 
+/**
+ * Funcion que modifica una cookie
+ */
 function modificarCookie() {
-    document.getElementById("modificar").innerText = document.cookie = "usuario=pepito perez;max-age=3600;path=/";
+    document.getElementById("modificar").innerText = document.cookie = "cookie2=pepito perez;max-age=3600;path=/";
 }
 
-function leerCookie() {
-    let lista = document.cookie.split(";");
-    for (i in lista) {
-        let busca = lista[i].search(nombre);
-        if (busca > -1) {micookie=lista[i]}
+/**
+ * Funcion que lee el contenido de una cookie
+ * @param nombre de la cookie a leer
+ */
+function leerCookie(nombre) {
+    let arrayCookies = document.cookie.split(";");
+    for (let i in arrayCookies) {
+        buscar = arrayCookies[i].search(nombre);
+        if (buscar > -1) {
+            cookieEncontrada = arrayCookies[i];
         }
-    let igual = micookie.indexOf("=");
-    let valor = micookie.substring(igual + 1);
-    document.getElementById("leer").innerText = valor;
+    }
+    document.getElementById("leer").innerText = cookieEncontrada;
 }
 
-function borrarCookie() {
-    document.getElementById("crear").innerText = crearCookie(nombre, valor, "Thu, 01 Jan 1970 00:00:00 UTC");
+/**
+ * Funcion que borra una cookie
+ * @param nombre de la cookie a borrar
+ */
+function borrarCookie(nombre) {
+    let arrayCookies = document.cookie.split(";");
+    for (let i in arrayCookies) {
+        buscar = arrayCookies[i].search(nombre);
+        if (buscar > -1) {
+            cookieEncontrada = crearCookie(nombre, "0", "Thu, 01 Jan 1970 00:00:00 UTC");
+            document.getElementById("borrar").innerText = "La cookie se ha borrado correctamente";
+        }
+    }
 }
