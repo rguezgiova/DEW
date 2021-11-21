@@ -5,7 +5,6 @@ class Bola {
     velocidadY;
     color;
     tamanio;
-
     /**
      * Constructor de la clase Bola
      * @param posicionX de la bola
@@ -16,85 +15,91 @@ class Bola {
      * @param tamanio de la bola
      */
     constructor(posicionX, posicionY, velocidadX, velocidadY, color, tamanio) {
-        this.posicionX = posicionX;
-        this.posicionY = posicionY;
-        this.velocidadX = velocidadX;
-        this.velocidadY = velocidadY;
-        this.color = color;
-        this.tamanio = tamanio;
+        this._posicionX = posicionX;
+        this._posicionY = posicionY;
+        this._velocidadX = velocidadX;
+        this._velocidadY = velocidadY;
+        this._color = color;
+        this._tamanio = tamanio;
     }
 
     /**
-     * Getters y setters
+     * Getters y Setters
      */
-    get getPosicionX() {
-        return this.posicionX;
+    get posicionX() {
+        return this._posicionX;
     }
 
-    set setPosicionX(posicionX) {
-        this.posicionX = posicionX;
+    set posicionX(value) {
+        this._posicionX = value;
     }
 
-    get getPosicionY() {
-        return this.posicionY;
+    get posicionY() {
+        return this._posicionY;
     }
 
-    set setPosicionY(posicionY) {
-        this.posicionY = posicionY;
+    set posicionY(value) {
+        this._posicionY = value;
     }
 
-    get getVelocidadX() {
-        return this.velocidadX;
+    get velocidadX() {
+        return this._velocidadX;
     }
 
-    set setVelocidadX(velocidadX) {
-        this.velocidadX = velocidadX;
+    set velocidadX(value) {
+        this._velocidadX = value;
     }
 
     get velocidadY() {
-        return this.velocidadY;
+        return this._velocidadY;
     }
 
-    set setVelocidadY(velocidadY) {
-        this.velocidadY = velocidadY;
+    set velocidadY(value) {
+        this._velocidadY = value;
     }
 
-    get getColor() {
-        return this.color;
+    get color() {
+        return this._color;
     }
 
-    set setColor(color) {
-        this.color = color;
+    set color(value) {
+        this._color = value;
     }
 
-    get getTamanio() {
-        return this.tamanio;
+    get tamanio() {
+        return this._tamanio;
     }
 
-    set setTamanio(tamanio) {
-        this.tamanio = tamanio;
+    set tamanio(value) {
+        this._tamanio = value;
     }
 }
 
-window.onload = () => {
-    const canvas = document.createElement("bolas");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-
-function drawBall() {
-    ctx = canvas.getContext();
-    ctx.beginPath();
-    ctx.arc(x, y, tamanio, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.closePath();
-}
+let canvas = document.getElementById("bolas");
+let ctx = canvas.getContext("2d");
+let bola = new Bola(posicionX, posicionY, velocidadX, velocidadY, color, tamanio);
+bola.posicionX = 10;
+bola.posicionY = 10;
+bola.velocidadX = 6;
+bola.velocidadY = -3;
+bola.color = '#FF0000';
+bola.tamanio = 10;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 function draw() {
     ctx.clearRect(0,0, canvas.width, canvas.height);
-    drawBall();
+    ctx.beginPath();
+    ctx.arc(bola.posicionX, bola.posicionY, 0, Math.PI*2);
+    ctx.fillStyle = bola.color;
+    ctx.fill();
+    ctx.closePath();
+    bola.posicionX += bola.velocidadX;
+    bola.posicionY += bola.velocidadY;
 }
 
 function update() {
     window.requestAnimationFrame(update);
 }
+
+setInterval(draw, 10);
