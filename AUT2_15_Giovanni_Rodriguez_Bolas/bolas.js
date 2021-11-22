@@ -1,10 +1,4 @@
 class Bola {
-    posicionX;
-    posicionY;
-    velocidadX;
-    velocidadY;
-    color;
-    tamanio;
     /**
      * Constructor de la clase Bola
      * @param posicionX de la bola
@@ -77,25 +71,35 @@ class Bola {
 
 let canvas = document.getElementById("bolas");
 let ctx = canvas.getContext("2d");
-let bola = new Bola(posicionX, posicionY, velocidadX, velocidadY, color, tamanio);
-bola.posicionX = 10;
-bola.posicionY = 10;
-bola.velocidadX = 6;
-bola.velocidadY = -3;
-bola.color = '#FF0000';
-bola.tamanio = 10;
+let bola = new Bola(10, 10, 6, -3, 'FF0000', 10);
+let posX = bola.posicionX;
+let posY = bola.posicionY;
+let velX = bola.velocidadX;
+let velY = bola.velocidadY;
+let color = bola.color;
+let tamanio = bola.tamanio;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-function draw() {
-    ctx.clearRect(0,0, canvas.width, canvas.height);
+function drawBall() {
     ctx.beginPath();
-    ctx.arc(bola.posicionX, bola.posicionY, 0, Math.PI*2);
-    ctx.fillStyle = bola.color;
+    ctx.arc(posX, posY, tamanio, 0, Math.PI*2);
+    ctx.fillStyle = color;
     ctx.fill();
     ctx.closePath();
-    bola.posicionX += bola.velocidadX;
-    bola.posicionY += bola.velocidadY;
+}
+
+function draw() {
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+    drawBall();
+    if (posX + velX > canvas.width - tamanio || posX + velX < tamanio) {
+        velX = -velX;
+    }
+    if (posY + velY > canvas.height - tamanio || posY + velY < tamanio) {
+        velY = -velY;
+    }
+    posX += velX;
+    posY += velY;
 }
 
 function update() {
@@ -103,3 +107,4 @@ function update() {
 }
 
 setInterval(draw, 10);
+update();
