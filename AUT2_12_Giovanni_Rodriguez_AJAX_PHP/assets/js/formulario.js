@@ -19,18 +19,18 @@ class Formulario {
      * @param {*} nombre de la persona
      * @param {*} apellidos de la persona
      * @param {*} dni de la persona
-     * @param {*} codigoPostal del municipio
+     * @param {*} codigoPostal del municipi
      * @param {*} telefonoFijo de la persona
      * @param {*} telefonoMovil de la persona
      * @param {*} residente si o no
-     * @param {*} fechaIda del viaje
-     * @param {*} personas del viaje
+     * @param {*} fechaIda del viatge
+     * @param {*} personas del viatge
      * @param {*} email de la persona
      * @param {*} twitter de la persona
      * @param {*} instagram de la persona
      * @param {*} vehiculo si, no, matricula
      * @param {*} ip desde que solicita
-     * @param {*} motivo del desplazamiento
+     * @param {*} motivo del desplaçament
      */
     constructor(nombre, apellidos, dni, codigoPostal, telefonoFijo, telefonoMovil, residente,
         fechaIda, personas, email, twitter, instagram, vehiculo, ip, motivo) {
