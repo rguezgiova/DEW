@@ -42,10 +42,13 @@ const DOM = {
     template: document.getElementById("deck-template").content,
     cards: document.getElementById("cards"),
 }
-
-window.onload = () => {
-    createElement();
-}
+let urls = [
+    'https://api.scryfall.com/cards/search?order=set&q=e%3Augin&unique=prints',
+    'https://api.scryfall.com/cards/search?order=set&q=e%3Aw17&unique=prints',
+    'https://api.scryfall.com/cards/search?order=set&q=e%3Aw16&unique=prints',
+    'https://api.scryfall.com/cards/search?order=set&q=e%3Azne&unique=prints',
+    'https://api.scryfall.com/cards/search?order=set&q=e%3Aitp&unique=prints'
+];
 
 function checkLogin() {
     if (user === 'daw' || password === 'admin') {
@@ -60,7 +63,7 @@ function checkLogin() {
  * @param url para realizar el fetch
  * @returns {Promise<*>} con los datos
  */
-async function fetch(url) {
+async function fetchCard(url) {
     const response = await fetch(url);
     const data = await response.json();
     return data.data;
@@ -69,8 +72,9 @@ async function fetch(url) {
 /**
  * Funcion que crea los elementos con los datos
  */
-function createElement() {
-    fetch("https://api.scryfall.com/cards/search?order=set&q=e%3Augin&unique=prints")
+function drawCard(url) {
+    DOM['cards'].innerHTML = "";
+    fetchCard(url)
         .then(cards => {
             cards.forEach(card => {
                 DOM['template'].querySelector("img").setAttribute("src", card.image_uris.small);

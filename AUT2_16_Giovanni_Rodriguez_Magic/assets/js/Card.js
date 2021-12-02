@@ -5,15 +5,15 @@ class Card {
      * @param price de la carta
      * @param deck al que pertenece la carta
      * @param color de la carta
-     * @param timeline de la carta
+     * @param typeLine de la carta
      * @param manaCost de la carta
      */
-    constructor(name, price, deck, color, timeline, manaCost) {
+    constructor(name, price, deck, color, typeLine, manaCost) {
         this._name = name;
         this._price = price;
         this._deck = deck;
         this._color = color;
-        this._timeline = timeline;
+        this._typeLine = typeLine;
         this._manaCost = manaCost;
     }
 
@@ -52,12 +52,12 @@ class Card {
         this._color = value;
     }
 
-    get timeline() {
-        return this._timeline;
+    get typeLine() {
+        return this._typeLine;
     }
 
-    set timeline(value) {
-        this._timeline = value;
+    set typeLine(value) {
+        this._typeLine = value;
     }
 
     get manaCost() {
@@ -67,4 +67,6 @@ class Card {
     set manaCost(value) {
         this._manaCost = value;
     }
+
+
 }
