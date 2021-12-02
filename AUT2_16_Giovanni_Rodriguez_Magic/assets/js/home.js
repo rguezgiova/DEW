@@ -1,42 +1,3 @@
-/**
- * Clase Login
- */
-class Login {
-    /**
-     * Constructor de la clase Login
-     * @param user a logear
-     * @param password a logear
-     */
-    constructor(user, password) {
-        this._user = user;
-        this._password = password;
-    }
-
-    /**
-     * Getters y Setters
-     */
-    get user() {
-        return this._user;
-    }
-
-    set user(value) {
-        this._user = value;
-    }
-
-    get password() {
-        return this._password;
-    }
-
-    set password(value) {
-        this._password = value;
-    }
-}
-
-let inputUser = document.getElementById("username").value;
-let inputPassword = document.getElementById("password").value;
-let login = new Login(inputUser, inputPassword);
-let user = login.user;
-let password = login.password;
 const fragment = document.createDocumentFragment();
 const DOM = {
     template: document.getElementById("deck-template").content,
@@ -49,14 +10,6 @@ let urls = [
     'https://api.scryfall.com/cards/search?order=set&q=e%3Azne&unique=prints',
     'https://api.scryfall.com/cards/search?order=set&q=e%3Aitp&unique=prints'
 ];
-
-function checkLogin() {
-    if (user === 'daw' || password === 'admin') {
-        alert('Already in');
-    } else {
-        document.getElementById('errorLogin').style.display = 'block';
-    }
-}
 
 /**
  * Funcion que recoge los datos de las cartas
@@ -77,7 +30,7 @@ function drawCard(url) {
     fetchCard(url)
         .then(cards => {
             cards.forEach(card => {
-                DOM['template'].querySelector("img").setAttribute("src", card.image_uris.small);
+                DOM['template'].querySelector("img").setAttribute("src", card.image_uris.normal);
                 DOM['template'].querySelector("img").setAttribute("alt", card.name);
                 DOM['template'].querySelector("h5").textContent = card.name;
                 DOM['template'].querySelector("p").textContent = card.prices.eur + "€";
