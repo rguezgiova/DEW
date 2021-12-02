@@ -38,18 +38,13 @@ let login = new Login(inputUser, inputPassword);
 let user = login.user;
 let password = login.password;
 const fragment = document.createDocumentFragment();
-const url = "https://api.scryfall.com/cards/search?order=set&q=e%3Augin&unique=prints";
 const DOM = {
     template: document.getElementById("deck-template").content,
     cards: document.getElementById("cards"),
 }
 
 window.onload = () => {
-    fetch2016();
-    fetch2017();
-    fetchUgins();
-    fetchZendikar();
-    fetchIntroductory();
+    createElement();
 }
 
 function checkLogin() {
@@ -61,80 +56,33 @@ function checkLogin() {
 }
 
 /**
- * Fetch del mazo
- * @returns {Promise<void>}
+ * Funcion que recoge los datos de las cartas
+ * @param url para realizar el fetch
+ * @returns {Promise<*>} con los datos
  */
-const fetch2016 = async() => {
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const card = await data.data;
-        createElement(card);
-        console.log(card);
-    } catch (error) {
-        alert(error);
-    }
+async function fetch(url) {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.data;
 }
 
-const fetchUgins = async() => {
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const card = await data.data;
-        createElement(card);
-        console.log(card);
-    } catch (error) {
-        alert(error);
-    }
-}
-
-const fetchZendikar = async() => {
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const card = await data.data;
-        createElement(card);
-        console.log(card);
-    } catch (error) {
-        alert(error);
-    }
-}
-
-const fetchIntroductory= async() => {
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const card = await data.data;
-        createElement(card);
-        console.log(card);
-    } catch (error) {
-        alert(error);
-    }
-}
-
-const fetch2017 = async() => {
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const card = await data.data;
-        createElement(card);
-        console.log(card);
-    } catch (error) {
-        alert(error);
-    }
-}
-
-const createElement = cards => {
-    cards.forEach(card => {
-        DOM['template'].querySelector("img").setAttribute("src", card.image_uris.small);
-        DOM['template'].querySelector("img").setAttribute("alt", card.name);
-        DOM['template'].querySelector("h5").textContent = card.name;
-        DOM['template'].querySelector("p").textContent = card.prices.eur + "€";
-        DOM['template'].querySelector("button").setAttribute("value", card.name);
-        DOM['template'].querySelector("button").textContent = "Add to deck";
-        DOM['template'].querySelector("button").dataset.id = card.id;
-        const addNode = document.importNode(DOM['template'], true);
-        fragment.appendChild(addNode);
-    })
-    DOM['cards'].append(fragment);
+/**
+ * Funcion que crea los elementos con los datos
+ */
+function createElement() {
+    fetch("https://api.scryfall.com/cards/search?order=set&q=e%3Augin&unique=prints")
+        .then(cards => {
+            cards.forEach(card => {
+                DOM['template'].querySelector("img").setAttribute("src", card.image_uris.small);
+                DOM['template'].querySelector("img").setAttribute("alt", card.name);
+                DOM['template'].querySelector("h5").textContent = card.name;
+                DOM['template'].querySelector("p").textContent = card.prices.eur + "€";
+                DOM['template'].querySelector("button").setAttribute("value", card.name);
+                DOM['template'].querySelector("button").textContent = "Add to deck";
+                DOM['template'].querySelector("button").dataset.id = card.id;
+                const addNode = document.importNode(DOM['template'], true);
+                fragment.appendChild(addNode);
+            })
+            DOM['cards'].append(fragment);
+    });
 }
