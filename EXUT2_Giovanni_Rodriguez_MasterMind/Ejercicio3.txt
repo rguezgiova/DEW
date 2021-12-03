@@ -1,0 +1,15 @@
+a) ¿Cómo podemos crear una cookie? Indica un ejemplo del código.
+document.cookie = name, valor, expires;
+
+b) ¿Cómo eliminamos el 'Reflow' que se produce en cada modificación del DOM?
+
+
+c) ¿Qué nos permite realizar la expresión window.onload = function(){}?
+Que el código que intruduzcamos dentro de dicha función se lance al terminar la página de cargar.
+
+d) Realiza una conexión PST con el objeto XMLHttpRequest.
+let request = new XMLHttpRequest();
+request.onreadystatechange = function() {
+}
+request.open("POST", "url", true);
+request.send();
