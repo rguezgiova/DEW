@@ -2,6 +2,7 @@ const fragment = document.createDocumentFragment();
 const DOM = {
     template: document.getElementById("deck-template").content,
     cards: document.getElementById("cards"),
+    imgCard: document.getElementById("imgCard"),
 }
 
 window.onload = () => {
@@ -55,4 +56,15 @@ function drawCard(url) {
 
             DOM['cards'].append(fragment);
     });
+}
+
+function zoomImageCard() {
+    let options = {
+        width: 400,
+        zoomWidth: 500,
+        offset: {vertical: 0, horizontal: 10},
+        fillContainer: true,
+        offset: {vertical: 0, horizontal: 10}
+    }
+    new ImageZoom(DOM['imgCard'], options);
 }
