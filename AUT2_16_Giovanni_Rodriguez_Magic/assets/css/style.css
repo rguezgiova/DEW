@@ -1,8 +1,19 @@
 @import url('http://fonts.cdnfonts.com/css/bignoodletitling');
 
-* {
-    font-family: 'BigNoodleTitling';
+::selection {
+    background: red;
+    color: white;
 }
+
+::-moz-selection {
+    background: red;
+    color: white;
+}
+
+* {
+    font-family: 'BigNoodleTitling', sans-serif;
+}
+
 body {
     background-image: url("../img/background2.jpeg");
     background-repeat: no-repeat;
@@ -17,6 +28,15 @@ a:hover {
     text-decoration: none;
 }
 
+.zoom {
+    transition: transform .2s;
+    margin: 0 auto;
+}
+
+.zoom:hover {
+    transform: scale(1.1);
+}
+
 .card {
     background-color: rgba(245, 245, 245, 0);
     color: white;
@@ -29,4 +49,8 @@ a:hover {
 .navbar li {
     margin-left: 1em;
     margin-right: 1em;
+}
+
+table {
+    color: white;
 }

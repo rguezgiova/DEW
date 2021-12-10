@@ -1,7 +1,9 @@
 const fragment = document.createDocumentFragment();
 const DOM = {
-    template: document.getElementById("deck-template").content,
+    templateDeck: document.getElementById("deck-template").content,
+    templateTable: document.getElementById("table-template").content,
     cards: document.getElementById("cards"),
+    table: document.getElementById("table-cards"),
     imgCard: document.getElementById("imgCard"),
 }
 
@@ -42,29 +44,35 @@ function drawCard(url) {
                 } else {
                     var newCard = new Card(card.name, card.prices.eur, card.deck, card.color_identity, card.type_line, card.cmc);
                 }
-                DOM['template'].querySelector("img").setAttribute("src", card.image_uris.normal);
-                DOM['template'].querySelector("img").setAttribute("alt", card.name);
-                DOM['template'].querySelector("h5").textContent = card.name;
-                DOM['template'].querySelector("p").textContent = card.prices.eur + "€";
-                DOM['template'].querySelector("button").setAttribute("value", card.name);
-                DOM['template'].querySelector("button").textContent = "Add to deck";
-                DOM['template'].querySelector("button").dataset.id = card.id;
-                const addNode = document.importNode(DOM['template'], true);
+                DOM['templateDeck'].querySelector("img").setAttribute("src", card.image_uris.normal);
+                DOM['templateDeck'].querySelector("img").setAttribute("alt", card.name);
+                DOM['templateDeck'].querySelector("h5").textContent = card.name;
+                DOM['templateDeck'].querySelector("p").textContent = card.prices.eur + "€";
+                DOM['templateDeck'].querySelector("button").setAttribute("value", card.name);
+                DOM['templateDeck'].querySelector("button").textContent = "Add to deck";
+                DOM['templateDeck'].querySelector("button").dataset.id = card.id;
+                const addNode = document.importNode(DOM['templateDeck'], true);
                 fragment.appendChild(addNode);
                 console.log(newCard);
             })
-
             DOM['cards'].append(fragment);
     });
 }
 
-function zoomImageCard() {
-    let options = {
-        width: 400,
-        zoomWidth: 500,
-        offset: {vertical: 0, horizontal: 10},
-        fillContainer: true,
-        offset: {vertical: 0, horizontal: 10}
-    }
-    new ImageZoom(DOM['imgCard'], options);
+function addToDeck() {
+    let deck = [];
+    let card = JSON.stringify({
+        NAME: Card.name(),
+        DECK: Card.deck(),
+        PRICE: Card.price(),
+    });
+    deck.push(card);
+    console.log(deck);
+    deck.forEach(card => {
+        DOM['templateTable'].querySelector("td").textContent = card.NAME;
+        DOM['templateTable'].querySelector("td").textContent = card.PRICE;
+        const addNode = document.importNode(DOM['templateTable'], true);
+        fragment.appendChild(addNode);
+    })
+    DOM['table'].append(fragment);
 }

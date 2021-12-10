@@ -67,6 +67,4 @@ class Card {
     set manaCost(value) {
         this._manaCost = value;
     }
-
-
 }
