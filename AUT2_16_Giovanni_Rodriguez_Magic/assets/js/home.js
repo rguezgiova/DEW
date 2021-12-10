@@ -5,21 +5,21 @@ const DOM = {
     cards: document.getElementById("cards"),
     table: document.getElementById("table-cards"),
     imgCard: document.getElementById("imgCard"),
+    logout: document.getElementById("logout"),
 }
-
 let arrayDeck = [];
+let urls = {
+    wel16: 'https://api.scryfall.com/cards/search?order=set&q=e%3Augin&unique=prints',
+    wel17: 'https://api.scryfall.com/cards/search?order=set&q=e%3Aw17&unique=prints',
+    ugins: 'https://api.scryfall.com/cards/search?order=set&q=e%3Aw16&unique=prints',
+    zendikar: 'https://api.scryfall.com/cards/search?order=set&q=e%3Azne&unique=prints',
+    two: 'https://api.scryfall.com/cards/search?order=set&q=e%3Aitp&unique=prints'
+};
 
 window.onload = () => {
-    drawCard(urls[0]);
+    drawCard(urls['wel16']);
+    DOM['logout'].style.display = "none";
 }
-
-let urls = [
-    'https://api.scryfall.com/cards/search?order=set&q=e%3Augin&unique=prints',
-    'https://api.scryfall.com/cards/search?order=set&q=e%3Aw17&unique=prints',
-    'https://api.scryfall.com/cards/search?order=set&q=e%3Aw16&unique=prints',
-    'https://api.scryfall.com/cards/search?order=set&q=e%3Azne&unique=prints',
-    'https://api.scryfall.com/cards/search?order=set&q=e%3Aitp&unique=prints'
-];
 
 /**
  * Funcion que recoge los datos de las cartas
@@ -41,10 +41,10 @@ function drawCard(url) {
         .then(cards => {
             cards.forEach(card => {
                 if (card.type_line.toLowerCase().includes('creature')) {
-                    let newCard = new CriatureCard(card.name, card.prices.eur, card.deck, card.color_identity, card.type_line, card.cmc, card.power, card.toughness);
+                    let newCard = new CriatureCard(card.name, card.prices.eur, card.set, card.color_identity, card.type_line, card.cmc, card.rarity, card.power, card.toughness);
                     arrayDeck.push(newCard);
                 } else {
-                    let newCard = new Card(card.name, card.prices.eur, card.deck, card.color_identity, card.type_line, card.cmc);
+                    let newCard = new Card(card.name, card.prices.eur, card.set, card.color_identity, card.type_line, card.cmc, card.rarity);
                     arrayDeck.push(newCard);
                 }
                 DOM['templateDeck'].querySelector("img").setAttribute("src", card.image_uris.normal);
@@ -58,7 +58,6 @@ function drawCard(url) {
                 fragment.appendChild(addNode);
             })
             DOM['cards'].append(fragment);
-            console.log(arrayDeck);
     });
 }
 
@@ -71,14 +70,23 @@ function addToDeck(id) {
     let deck = [];
     let card = JSON.stringify({
         name: found.name,
-        deck: "a",
+        deck: found.deck,
         price: found.price,
+        amount: found.amount
     });
     console.log(card);
     deck.push(card);
+    if (arrayDeck.includes(card)) {
+        if (found.amount < 4) {
+            found.amount + 1;
+        } else {
+            alert("No se puede añadir más de cuatro(4) cartas");
+        }
+    }
     deck.forEach(card => {
         DOM['templateTable'].querySelectorAll("td")[0].textContent = found.name;
         DOM['templateTable'].querySelectorAll("td")[1].textContent = found.price;
+        DOM['templateTable'].querySelectorAll("td")[4].textContent = found.amount;
         const addNode = document.importNode(DOM['templateTable'], true);
         fragment.appendChild(addNode);
     });

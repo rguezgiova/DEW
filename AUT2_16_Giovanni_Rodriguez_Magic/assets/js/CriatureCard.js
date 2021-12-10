@@ -7,11 +7,13 @@ class CriatureCard extends Card{
      * @param color de la carta
      * @param typeLine de la carta
      * @param manaCost de la carta
+     * @param rarity de la carta
+     * @param amount de la carta
      * @param power de la carta
      * @param toughness de la carta
      */
-    constructor(name, price, deck, color, typeLine, manaCost, power, toughness) {
-        super(name, price, deck, color, typeLine, manaCost);
+    constructor(name, price, deck, color, typeLine, manaCost, rarity, amount, power, toughness) {
+        super(name, price, deck, color, typeLine, manaCost, rarity, amount);
         this._power = power;
         this._toughness = toughness;
         this._name = name;

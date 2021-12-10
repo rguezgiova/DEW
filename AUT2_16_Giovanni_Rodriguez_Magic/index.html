@@ -24,15 +24,15 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Decks</a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls[0]);">Welcome Deck 2016</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['wel16']);">Welcome Deck 2016</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls[1]);">Welcome Deck 2017</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['wel17']);">Welcome Deck 2017</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls[2]);">Ugin's Fate</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['ugins']);">Ugin's Fate</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls[3]);">Zendikar Rising Expeditions</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['zendikar']);">Zendikar Rising Expeditions</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls[4]);">Introductory Two-Player</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['two']);">Introductory Two-Player</a></li>
                             </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -58,6 +58,9 @@
                             </form>
                         </ul>
                     </li>
+                    <li class="nav-item" id="logout">
+                        <a class="nav-link">Logout</a>
+                    </li>
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search card" aria-label="Search">
@@ -77,8 +80,8 @@
                 <div class="col-9">
                     <div class="row" id="cards"></div>
                 </div>
-                <div class="col-3" id="table-cards">
-                    <table>
+                <div class="col-3">
+                    <table class="table" id="table-cards">
                         <tr>
                             <td>Name</td>
                             <td>Price</td>
