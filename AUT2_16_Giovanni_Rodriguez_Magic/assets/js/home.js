@@ -7,6 +7,8 @@ const DOM = {
     imgCard: document.getElementById("imgCard"),
 }
 
+let arrayDeck = [];
+
 window.onload = () => {
     drawCard(urls[0]);
 }
@@ -27,7 +29,6 @@ let urls = [
 async function fetchCard(url) {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data.data);
     return data.data;
 }
 
@@ -40,9 +41,11 @@ function drawCard(url) {
         .then(cards => {
             cards.forEach(card => {
                 if (card.type_line.toLowerCase().includes('creature')) {
-                    var newCard = new Card(card.name, card.prices.eur, card.deck, card.color_identity, card.type_line, card.cmc, card.power, card.toughness);
+                    let newCard = new CriatureCard(card.name, card.prices.eur, card.deck, card.color_identity, card.type_line, card.cmc, card.power, card.toughness);
+                    arrayDeck.push(newCard);
                 } else {
-                    var newCard = new Card(card.name, card.prices.eur, card.deck, card.color_identity, card.type_line, card.cmc);
+                    let newCard = new Card(card.name, card.prices.eur, card.deck, card.color_identity, card.type_line, card.cmc);
+                    arrayDeck.push(newCard);
                 }
                 DOM['templateDeck'].querySelector("img").setAttribute("src", card.image_uris.normal);
                 DOM['templateDeck'].querySelector("img").setAttribute("alt", card.name);
@@ -50,29 +53,34 @@ function drawCard(url) {
                 DOM['templateDeck'].querySelector("p").textContent = card.prices.eur + "€";
                 DOM['templateDeck'].querySelector("button").setAttribute("value", card.name);
                 DOM['templateDeck'].querySelector("button").textContent = "Add to deck";
-                DOM['templateDeck'].querySelector("button").dataset.id = card.id;
+                DOM['templateDeck'].querySelector("button").id = card.id;
                 const addNode = document.importNode(DOM['templateDeck'], true);
                 fragment.appendChild(addNode);
-                console.log(newCard);
             })
             DOM['cards'].append(fragment);
+            console.log(arrayDeck);
     });
 }
 
-function addToDeck() {
+/**
+ * Funcion que añade una carta al mazo
+ */
+function addToDeck(id) {
+    let found = arrayDeck.find(card => card = id);
+    console.log(found);
     let deck = [];
     let card = JSON.stringify({
-        NAME: Card.name(),
-        DECK: Card.deck(),
-        PRICE: Card.price(),
+        name: found.name,
+        deck: "a",
+        price: found.price,
     });
+    console.log(card);
     deck.push(card);
-    console.log(deck);
     deck.forEach(card => {
-        DOM['templateTable'].querySelector("td").textContent = card.NAME;
-        DOM['templateTable'].querySelector("td").textContent = card.PRICE;
+        DOM['templateTable'].querySelectorAll("td")[0].textContent = found.name;
+        DOM['templateTable'].querySelectorAll("td")[1].textContent = found.price;
         const addNode = document.importNode(DOM['templateTable'], true);
         fragment.appendChild(addNode);
-    })
+    });
     DOM['table'].append(fragment);
 }
