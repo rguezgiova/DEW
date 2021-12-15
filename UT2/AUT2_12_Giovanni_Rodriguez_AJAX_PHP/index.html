@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Solicitud Viaje en Barco</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/estilo.css"/>    
+<body>
+    <div class="checkout">
+        <div>
+            <p class="title"> Travel request </p>
+        </div>
+        <form class="form" autocomplete="off">
+        <fieldset>
+            <label for="in_name">Name</label>
+            <input type="text" id="in_name" pattern="/^[a-zA-Z]*$/g" class="input-form" maxlength="10" />
+        </fieldset>
+        <fieldset class="fieldset_surename">
+            <label for="in_surname">Surname</label>
+            <input type="text" id="in_surname" pattern="/^[a-zA-Z]*$/g" class="input-form" maxlength="10" />
+        </fieldset>
+        <fieldset class="fieldset_dni">
+            <label for="in_dni">DNI/NIE</label>
+            <input type="text" id="in_dni" pattern="/\d{8}[a-z A-Z]/" class="input-form" />
+        </fieldset>
+        <fieldset class="fieldset_postalcode">
+            <label for="in_postalcode">Postal code</label>
+            <div class="select">
+            <select id="in_postalcode">
+                <option value="38400">38400</option>
+                <option value="38311">38311</option>
+                <option value="38450">38450</option>
+                <option value="otro">Otro</option>
+            </select>
+            </div>
+        </fieldset>
+        <button class="btn"> submit</button>
+        </form>
+    </div>
+    <script src="assets/js/formulario.js" type="text/javascript"></script>
+</body>
+</html>
