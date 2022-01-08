@@ -9,30 +9,12 @@ let color = {
 };
 
 /**
- * Función que se encarga de validar el valor de los datos recibidos
- * @param letras que se envían
- * @returns {boolean}
- */
-function validarLetras(letras) {
-    var patron = /^[A-Z]$/i;
-    let correcto = true;
-
-    letras.forEach(letra => {
-        if (!patron.test(letra)) {
-            alert('Solo se admite un caracter alfabético');
-            correcto = false;
-        }
-    });
-    return correcto;
-}
-
-/**
  * Función que comprueba los valores recibidos
  */
 function comprobarInputs() {
     let set = ['A', 'B', 'C', 'D'];
     let intento = [];
-    var elementos =$('#formulario').find('input');
+    var elementos = $('#formulario').find('button');
 
     for (let i = 0; i < elementos.length; i++) {
         intento.push(elementos[i].value);
@@ -40,9 +22,7 @@ function comprobarInputs() {
 
     intento.pop();
 
-    if (validarLetras(intento)) {
-        comprobarResultado(set, intento);
-    }
+    comprobarResultado(set, intento);
 }
 
 /**
@@ -56,7 +36,7 @@ function comprobarResultado(set, letras) {
     let intento = letras;
 
     for (let j = 0; j < set.length; j++) {
-        if (set[j] == intento[j].toUpperCase()) {
+        if (set[j] == intento[j]) {
             aciertos++;
             set[j] = null;
             intentos[j] = null;
@@ -65,7 +45,7 @@ function comprobarResultado(set, letras) {
 
     set.forEach(letra => {
         intento.forEach(letraIntento => {
-            if (letra == letraIntento.toUpperCase()) {
+            if (letra == letraIntento) {
                 coincidencias++;
             }
         });
@@ -88,17 +68,17 @@ function mostrarResultado(letras, aciertos, coincidencias) {
     if (intentos > 10) {
         template.querySelectorAll("td")[4].textContent = "Se te han acabado los intentos, más suerte la próxima";
     } else if (aciertos == 4) {
-        template.querySelectorAll("td")[0].textContent = letras[0].toUpperCase();
-        template.querySelectorAll("td")[1].textContent = letras[1].toUpperCase();
-        template.querySelectorAll("td")[2].textContent = letras[2].toUpperCase();
-        template.querySelectorAll("td")[3].textContent = letras[1].toUpperCase();
+        template.querySelectorAll("td")[0].style.backgroundColor = letras[0];
+        template.querySelectorAll("td")[1].textContent = letras[1];
+        template.querySelectorAll("td")[2].textContent = letras[2];
+        template.querySelectorAll("td")[3].textContent = letras[1];
         template.querySelectorAll("td")[4].textContent = "Has acertado en " + intentos + " intentos";
     } else {
         let resultado = "Tiene " + aciertos + " aciertos y " + coincidencias + " coincidencias";
-        template.querySelectorAll("td")[0].textContent =  letras[0].toUpperCase();
-        template.querySelectorAll("td")[1].textContent =  letras[1].toUpperCase();
-        template.querySelectorAll("td")[2].textContent =  letras[2].toUpperCase();
-        template.querySelectorAll("td")[3].textContent =  letras[3].toUpperCase();
+        template.querySelectorAll("td")[0].textContent =  letras[0];
+        template.querySelectorAll("td")[1].textContent =  letras[1];
+        template.querySelectorAll("td")[2].textContent =  letras[2];
+        template.querySelectorAll("td")[3].textContent =  letras[3];
         template.querySelectorAll("td")[4].textContent =  resultado;
     }
     const clone = template.cloneNode(true);
