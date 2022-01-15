@@ -1,0 +1,61 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <title>14/01/21 - Examen: Ejercicio 1</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <h1>Ejercicio 1</h1>
+    <div id="items">
+        <h2>Productos</h2>
+        <div>
+            <div id="element1">
+                <input name="item1" type="checkbox" id="item1" />
+                <span>TRONO DE HIERRO GOT</span> -
+                <span>78.50</span>€
+            </div>
+            <div id="element2">
+                <input name="item2" type="checkbox" id="item2" />
+                <span>MEDALLÓN STARK</span> -
+                <span>29</span>€
+            </div>
+            <div id="element3">
+                <input name="item3" type="checkbox" id="item3" />
+                <span>HUEVO DE DRAGON</span> -
+                <span>22.50</span>€
+            </div>
+            <div id="element4">
+                <input name="item4" type="checkbox" id="item4" />
+                <span>ESPADA DE HIELO DE LOS CAMINANTES</span> -
+                <span>149.95</span>€
+            </div>
+            <div id="element5">
+                <input name="item5" type="checkbox" id="item5" />
+                <span>CUERNO DE INVIERNO</span> -
+                <span>199.95</span>€
+            </div>
+        </div>
+        <div id="agregar">
+            <button onclick="addItem();">Agregar al Carrito</button>
+        </div>
+    </div>
+    <div id="compra">
+        <h2>Cesta de la compra</h2>
+        <div id="elementos">
+
+        </div>
+        <div id="cesta">
+            <p><strong>IGIC (7%): 0</strong><span></span>€</p>
+            <p><strong>Importe Total: 0</strong><span></span>€</p>
+        </div>
+        <script src="assets/js/ejercicio1.js"></script>
+    </div>
+    <template id="template-elemento">
+        <p></p>
+    </template>
+</body>
+</html>

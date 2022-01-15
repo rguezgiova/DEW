@@ -1,0 +1,17 @@
+#body {
+    display: flex;
+    width: 100%;
+}
+
+#persons {
+    width: 100%;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+    height: 140px;
+    margin-left: 50px;
+}
