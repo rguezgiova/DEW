@@ -1,0 +1,12 @@
+footer {
+  background-color: #000000;
+}
+
+p {
+  text-align: center;
+  color: #ffffff;
+}
+
+p:first-child {
+  font-weight: bold;
+}
