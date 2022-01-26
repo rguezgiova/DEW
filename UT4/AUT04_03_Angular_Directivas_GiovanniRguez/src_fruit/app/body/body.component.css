@@ -1,0 +1,15 @@
+.imgs {
+  margin-left: 200px;
+  display: flex;
+  flex-direction: row;
+  gap: 9px;
+}
+
+.fruta {
+  border: blueviolet 1px solid;
+  border-radius: 10px;
+}
+
+img {
+  width: 200px;
+}
