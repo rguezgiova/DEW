@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('http://fonts.cdnfonts.com/css/prestage');
+
+* {
+    font-family: 'Prestage Italic', sans-serif;
+}
