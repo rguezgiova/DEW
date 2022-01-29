@@ -6,13 +6,15 @@ import { FilmComponent } from './film/film.component';
 import {FormsModule} from "@angular/forms";
 import { FilmDetailsComponent } from './film-details/film-details.component';
 import { DotToBracketPipe } from './dot-to-bracket.pipe';
+import { PhaseCalculatorPipe } from './phase-calculator.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     FilmComponent,
     FilmDetailsComponent,
-    DotToBracketPipe
+    DotToBracketPipe,
+    PhaseCalculatorPipe
   ],
     imports: [
         BrowserModule,

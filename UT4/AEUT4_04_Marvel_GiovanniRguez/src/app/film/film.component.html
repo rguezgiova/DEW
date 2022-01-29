@@ -6,9 +6,7 @@
           <img src="{{film.image}}" class="card-img-top" alt="{{film.name}}" (click)="select(film)">
           <div class="card-body">
             <h5 class="card-title" (click)="select(film)">{{film.name | dotToBracket}}</h5>
-            <p class="card-text" *ngIf="film.age >= 2008 && film.age <= 2012">FASE 1 DEL UCM</p>
-            <p class="card-text" *ngIf="film.age >= 2013 && film.age <= 2015">FASE 2 DEL UCM</p>
-            <p class="card-text" *ngIf="film.age >= 2016 && film.age <= 2019">FASE 3 DEL UCM</p>
+            <p class="card-text">{{film.age | phaseCalculator}}</p>
           </div>
         </div>
       </div>
