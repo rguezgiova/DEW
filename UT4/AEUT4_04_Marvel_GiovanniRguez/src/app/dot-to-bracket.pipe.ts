@@ -5,6 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DotToBracketPipe implements PipeTransform {
 
+  /**
+   * Pipe que transforma el nombre de una película según si tiene o no :
+   * @param name de la película
+   */
   transform(name: string) {
     let tempArray = name.split(': ');
     if (tempArray[1] != null) {

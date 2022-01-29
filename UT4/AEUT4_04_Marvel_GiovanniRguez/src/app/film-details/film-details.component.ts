@@ -14,5 +14,8 @@ export class FilmDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Decorador Imput con el valor del componente padre
+   */
   @Input() film?: Film;
 }

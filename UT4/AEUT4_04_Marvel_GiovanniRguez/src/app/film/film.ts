@@ -1,3 +1,6 @@
+/**
+ * Clase Film
+ */
 export class Film {
   id: number;
   age: number;
@@ -5,6 +8,9 @@ export class Film {
   image: string;
   synopsis: string;
 
+  /**
+   * Constructor de la clase Film
+   */
   constructor() {
     this.id = 0;
     this.age = 0;
