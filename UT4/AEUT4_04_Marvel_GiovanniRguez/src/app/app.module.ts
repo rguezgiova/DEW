@@ -9,6 +9,7 @@ import { DotToBracketPipe } from './pipes/dot-to-bracket.pipe';
 import { PhaseCalculatorPipe } from './pipes/phase-calculator.pipe';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { MarvelComponent } from './components/marvel/marvel.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MarvelComponent } from './components/marvel/marvel.component';
     imports: [
         BrowserModule,
         FormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HttpClientModule
     ],
   providers: [],
   bootstrap: [AppComponent]

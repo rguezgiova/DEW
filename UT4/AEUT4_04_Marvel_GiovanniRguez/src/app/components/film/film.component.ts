@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Film } from "./film";
 import { FILMS } from "../../mocks/mock-film";
+import { FilmService } from "../../services/film.service";
 
 @Component({
   selector: 'app-film',
@@ -10,7 +11,7 @@ import { FILMS } from "../../mocks/mock-film";
 export class FilmComponent implements OnInit {
   edit = false;
 
-  films = FILMS;
+  films: Film[] = [];
 
   selectedFilm: Film = new Film();
 
@@ -32,8 +33,13 @@ export class FilmComponent implements OnInit {
     this.edit = false;
   }
 
-  constructor() { }
+  constructor(private filmService: FilmService) { }
 
   ngOnInit(): void {
+    this.filmService.getFilms().subscribe({
+      next: films => {
+        this.films = films;
+      }
+    })
   }
 }

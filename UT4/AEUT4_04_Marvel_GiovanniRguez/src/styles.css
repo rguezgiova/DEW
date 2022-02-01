@@ -4,3 +4,19 @@
 * {
     font-family: 'Prestage Italic', sans-serif;
 }
+
+::selection {
+  background: red;
+  color: white;
+}
+
+::-moz-selection {
+  background: red;
+  color: white;
+}
+
+a:hover {
+  color: red;
+  border-bottom: 1px solid red;
+  text-decoration: none;
+}

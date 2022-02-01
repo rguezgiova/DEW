@@ -3,9 +3,9 @@
  */
 export class Film {
   id: number;
-  age: number;
   name: string;
   image: string;
+  age: number;
   synopsis: string;
 
   /**
@@ -13,9 +13,9 @@ export class Film {
    */
   constructor() {
     this.id = 0;
-    this.age = 0;
     this.name = "";
     this.image = "";
+    this.age = 0;
     this.synopsis = "";
   }
 }
