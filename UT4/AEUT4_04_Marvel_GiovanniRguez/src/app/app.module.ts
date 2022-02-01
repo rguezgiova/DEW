@@ -7,6 +7,8 @@ import {FormsModule} from "@angular/forms";
 import { FilmDetailsComponent } from './components/film-details/film-details.component';
 import { DotToBracketPipe } from './pipes/dot-to-bracket.pipe';
 import { PhaseCalculatorPipe } from './pipes/phase-calculator.pipe';
+import { AppRoutingModule } from './modules/app-routing.module';
+import { MarvelComponent } from './components/marvel/marvel.component';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,13 @@ import { PhaseCalculatorPipe } from './pipes/phase-calculator.pipe';
     FilmComponent,
     FilmDetailsComponent,
     DotToBracketPipe,
-    PhaseCalculatorPipe
+    PhaseCalculatorPipe,
+    MarvelComponent
   ],
     imports: [
         BrowserModule,
-        FormsModule
+        FormsModule,
+        AppRoutingModule
     ],
   providers: [],
   bootstrap: [AppComponent]

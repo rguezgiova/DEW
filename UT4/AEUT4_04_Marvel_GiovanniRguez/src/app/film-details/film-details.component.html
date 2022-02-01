@@ -1,4 +1,0 @@
-<div *ngIf="film">
-  <p *ngIf="film.name !=''" class="card-text">{{(readMore) ? film.synopsis : film.synopsis | slice:0:300}} <span *ngIf="!readMore"></span>
-    <a href="javascript:" *ngIf="!readMore" (click)="readMore=true">[Leer más]</a></p>
-</div>
