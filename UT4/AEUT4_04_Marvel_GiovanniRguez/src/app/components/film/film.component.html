@@ -1,0 +1,35 @@
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="card col-4 border-0 mx-auto mt-auto mb-auto" *ngFor="let film of films">
+          <img src="{{film.image}}" class="card-img-top" alt="{{film.name}}" (click)="select(film)">
+          <div class="card-body">
+            <h5 class="card-title" (click)="select(film)">{{film.name | dotToBracket}}</h5>
+            <p class="card-text">{{film.age | phaseCalculator}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="mx-auto mt-auto mb-auto">
+        <h5 class="card-title mb-4">Añadir/Editar Película</h5>
+        <input class="form-control mb-3" type="number" [(ngModel)]="selectedFilm.id" placeholder="id">
+        <input class="form-control mb-3" type="number" [(ngModel)]="selectedFilm.age" placeholder="año">
+        <input class="form-control mb-3" type="text" [(ngModel)]="selectedFilm.name" placeholder="nombre">
+        <input class="form-control mb-4" type="text" [(ngModel)]="selectedFilm.image" placeholder="imagen">
+        <input class="form-control mb-4" type="text" [(ngModel)]="selectedFilm.synopsis" placeholder="sinopsis">
+        <button class="btn btn-primary" (click)="addOrEdit()">Enviar</button>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card col-6 border-0 mx-auto mt-auto mb-auto">
+        <img src="{{selectedFilm.image}}" class="card-img-top" alt="{{selectedFilm.name}}">
+        <div class="card-body">
+          <h5 class="card-title">{{selectedFilm.name | dotToBracket}}</h5>
+          <app-film-details [film]="selectedFilm"></app-film-details>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

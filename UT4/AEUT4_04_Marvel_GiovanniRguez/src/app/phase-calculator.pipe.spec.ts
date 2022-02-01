@@ -1,4 +1,4 @@
-import { PhaseCalculatorPipe } from './phase-calculator.pipe';
+import { PhaseCalculatorPipe } from './pipes/phase-calculator.pipe';
 
 describe('PhaseCalculatorPipe', () => {
   it('create an instance', () => {

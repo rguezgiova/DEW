@@ -1,4 +1,4 @@
-import { DotToBracketPipe } from './dot-to-bracket.pipe';
+import { DotToBracketPipe } from './pipes/dot-to-bracket.pipe';
 
 describe('DotToBracketPipe', () => {
   it('create an instance', () => {
