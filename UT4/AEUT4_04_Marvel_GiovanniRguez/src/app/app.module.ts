@@ -12,14 +12,15 @@ import { MarvelComponent } from './components/marvel/marvel.component';
 import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FilmComponent,
-    FilmDetailsComponent,
-    DotToBracketPipe,
-    PhaseCalculatorPipe,
-    MarvelComponent
-  ],
+    declarations: [
+        AppComponent,
+        FilmComponent,
+        FilmDetailsComponent,
+        DotToBracketPipe,
+        PhaseCalculatorPipe,
+        MarvelComponent,
+        DotToBracketPipe
+    ],
     imports: [
         BrowserModule,
         FormsModule,

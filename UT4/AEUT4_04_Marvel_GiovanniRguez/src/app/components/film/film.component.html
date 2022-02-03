@@ -6,7 +6,7 @@
           <img src="{{film.image}}" class="card-img-top" alt="{{film.name}}" routerLink="/detail/{{film.id}}">
           <div class="card-body">
             <h5 class="card-title">{{film.name | dotToBracket}}</h5>
-            <p class="card-text">{{film.age | phaseCalculator}}</p>
+            <!--<p class="card-text">{{film.age | phaseCalculator}}</p> -->
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
         <input class="form-control mb-3" type="text" placeholder="nombre">
         <input class="form-control mb-4" type="text" placeholder="imagen">
         <input class="form-control mb-4" type="text" placeholder="sinopsis">
-        <button class="btn btn-primary" (click)="add()">Enviar</button>
+        <!-- <button class="btn btn-primary" (click)="add(newFilm)">Enviar</button> -->
       </div>
     </div>
   </div>

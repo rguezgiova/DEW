@@ -17,11 +17,7 @@ export class FilmComponent implements OnInit {
   }
 
   getFilms(): void {
-    this.filmService.getFilms().subscribe({
-      next: films => {
-        this.films = films;
-      }
-    })
+    this.filmService.getFilms();
   }
 
   add(film: Film) {

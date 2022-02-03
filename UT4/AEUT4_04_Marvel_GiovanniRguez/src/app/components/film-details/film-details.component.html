@@ -1,9 +1,9 @@
 <div *ngIf="film">
   <div class="col-6">
     <div class="card col-6 border-0 mx-auto mt-auto mb-auto">
-      <img src="{{selectedFilm.image}}" class="card-img-top" alt="{{selectedFilm.name}}">
+      <img src="{{film.image}}" class="card-img-top" alt="{{film.name}}">
       <div class="card-body">
-        <h5 class="card-title">{{selectedFilm.name | dotToBracket}}</h5>
+        <h5 class="card-title">{{film.name | dotToBracket}}</h5>
         <p *ngIf="film.name !=''" class="card-text">{{(readMore) ? film.synopsis : film.synopsis | slice:0:300}} <span *ngIf="!readMore"></span>
           <a href="javascript:" *ngIf="!readMore" (click)="readMore=true">[Leer más]</a></p>
       </div>
@@ -19,5 +19,6 @@
     <input class="form-control mb-4" type="text" [(ngModel)]="selectedFilm.image" placeholder="imagen">
     <input class="form-control mb-4" type="text" [(ngModel)]="selectedFilm.synopsis" placeholder="sinopsis">
     <button class="btn btn-primary" (click)="update(selectedFilm)">Enviar</button>
+    <button class="btn btn-danger" (click)="delete(selectedFilm.id)">Borrar</button>
   </div>
 </div>

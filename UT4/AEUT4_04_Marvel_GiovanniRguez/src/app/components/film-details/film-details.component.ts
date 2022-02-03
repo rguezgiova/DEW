@@ -13,10 +13,10 @@ export class FilmDetailsComponent implements OnInit {
   edit = false;
   readMore = false;
   films: Film[] = [];
-  selectedFilm: Film = new Film();
+  selectedFilm: Film[] = [];
 
   select(film: Film): void {
-    this.selectedFilm = film;
+    this.selectedFilm = [];
     this.edit = true;
   }
 

@@ -5,17 +5,17 @@ export class Film {
   id: number;
   name: string;
   image: string;
-  age: number;
+  age: string;
   synopsis: string;
 
   /**
    * Constructor de la clase Film
    */
-  constructor() {
-    this.id = 0;
-    this.name = "";
-    this.image = "";
-    this.age = 0;
-    this.synopsis = "";
+  constructor(id: number, name: string, image: string, age: string, synopsis: string) {
+    this.id = id;
+    this.name = name;
+    this.image = image;
+    this.age = age;
+    this.synopsis = synopsis;
   }
 }
