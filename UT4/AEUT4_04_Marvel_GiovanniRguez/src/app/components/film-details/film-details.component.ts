@@ -20,17 +20,12 @@ export class FilmDetailsComponent implements OnInit {
     this.edit = true;
   }
 
-  delete(film: Film) {
-    this.films = this.films.filter(f => f != film);
-    this.selectedFilm = new Film();
+  delete(id: number) {
+    this.filmService.delete(id);
   }
 
-  save(): void {
-    if (this.film) {
-      this.filmService.update(this.film).subscribe();
-    }
-    this.selectedFilm = new Film();
-    this.edit = false;
+  update(film: Film): void {
+    this.filmService.update(film)
   }
 
   getFilm(): void {

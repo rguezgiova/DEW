@@ -18,6 +18,6 @@
     <input class="form-control mb-3" type="text" [(ngModel)]="selectedFilm.name" placeholder="nombre">
     <input class="form-control mb-4" type="text" [(ngModel)]="selectedFilm.image" placeholder="imagen">
     <input class="form-control mb-4" type="text" [(ngModel)]="selectedFilm.synopsis" placeholder="sinopsis">
-    <button class="btn btn-primary" (click)="addOrEdit()">Enviar</button>
+    <button class="btn btn-primary" (click)="update(selectedFilm)">Enviar</button>
   </div>
 </div>

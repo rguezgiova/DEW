@@ -9,7 +9,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class FilmService {
   url = 'https://www.qando.es/docs/films.php';
-
   httpOptions = {
     headers: new HttpHeaders({'Concert-Type': 'application/json'})
   };
@@ -36,6 +35,21 @@ export class FilmService {
       tap(_ => console.log(`Updated film id = ${film.id}`)),
       catchError(this.handleError<any>('updateFilm'))
     );
+  }
+
+  add(film: Film): Observable<Film> {
+    return this.http.post<Film>(this.url, film, this.httpOptions).pipe(
+        tap((newFilm: Film) => console.log(`Added film id = ${newFilm.id}`)),
+        catchError(this.handleError<Film>('addFilm'))
+    );
+  }
+
+  delete(id: number): Observable<Film> {
+    const url = `${this.url}/${id}`;
+    return this.http.delete<Film>(url, this.httpOptions).pipe(
+        tap(_ => console.log(`Deleted film id = ${id}`)),
+        catchError(this.handleError<Film>('deleteFilm'))
+    )
   }
 
   constructor(private http: HttpClient) { }
