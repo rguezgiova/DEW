@@ -9,6 +9,8 @@ import { FilmService } from "../../services/film.service";
 })
 export class FilmComponent implements OnInit {
   films: Film[] = [];
+  selectedFilm?: Film;
+  //newFilm: Film = new Film();
 
   constructor(private filmService: FilmService) { }
 
@@ -16,11 +18,18 @@ export class FilmComponent implements OnInit {
     this.getFilms();
   }
 
-  getFilms(): void {
+  /**
+   * Función que recoge el listado de películas
+   */
+  getFilms() {
+    this.films = this.filmService.films;
     this.filmService.getFilms();
   }
 
-  add(film: Film) {
-    this.filmService.add(film);
+  /**
+   *
+  add() {
+    this.filmService.add(this.newFilm);
   }
+   */
 }

@@ -1,3 +1,6 @@
+/**
+ * Interfaz para recoger los parámetros de la API
+ */
 export interface FetchData {
   data: [{
     id: number,

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Film } from "../components/film/film";
-import { catchError, Observable, of, tap, map } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { FILMS } from "../mocks/mock-film";
+import { HttpClient } from "@angular/common/http";
 import { FetchData } from "../interfaces/fetch-data";
+import { Observable, of } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,58 +11,61 @@ import { FetchData } from "../interfaces/fetch-data";
 export class FilmService {
   urlFilms = 'https://mcuapi.herokuapp.com/api/v1/movies';
   films: Film[] = [];
-  httpOptions = {
-    headers: new HttpHeaders({'Concert-Type': 'application/json'})
-  };
 
-  getFilms(): void {
-    this.http.get<FetchData>(this.urlFilms).subscribe(data => {
-      console.log(data.data);
+  /**
+   * Función que recoge el listado de películas
+   */
+  getFilms() {
+     this.http.get<FetchData>(this.urlFilms).subscribe(data => {
       data.data.forEach(element => {
         let film = new Film(element.id, element.title, element.cover_url, element.release_date, element.overview);
         this.films.push(film);
       });
-        console.log(this.films);
     });
   }
 
-
+  /**
+   * Función que busca un elemento según su id
+   * @param id del elemento a buscar
+   */
   getFilm(id: number): Observable<Film> {
-    const url = `${this.urlFilms}/${id}`;
-    return this.http.get<Film>(url).pipe(
-      tap(_ => console.log(`fetched film id = ${id}`)),
-      catchError(this.handleError<Film>('getFilm id = ${id}'))
-    );
+    const film = FILMS.find(f => f.id === id)!;
+    return of(film)
   }
 
-  update(film: Film): Observable<any> {
-    return this.http.put(this.urlFilms, film, this.httpOptions).pipe(
-      tap(_ => console.log(`Updated film id = ${film.id}`)),
-      catchError(this.handleError<any>('updateFilm'))
-    );
+  /**
+   * Función que actualiza una película
+   * @param film a actualizar
+   */
+  update(film: Film) {
+    this.films.find(element => film == element);
+    this.films.pop();
+    this.films.push(film);
   }
 
-  add(film: Film): Observable<Film> {
-    return this.http.post<Film>(this.urlFilms, film, this.httpOptions).pipe(
-        tap((newFilm: Film) => console.log(`Added film id = ${newFilm.id}`)),
-        catchError(this.handleError<Film>('addFilm'))
-    );
+  /**
+   * Función que añade una película
+   * @param film a añadir
+   */
+  add(film: Film) {
+    if (this.films.find(element => element === film)) {
+      alert('La película que intenta añadir ya existe');
+    } else  {
+      this.films.push(film);
+      alert('Se ha añadido correctamente ' + film.name);
+    }
   }
 
-  delete(id: number): Observable<Film> {
-    const url = `${this.urlFilms}/${id}`;
-    return this.http.delete<Film>(url, this.httpOptions).pipe(
-        tap(_ => console.log(`Deleted film id = ${id}`)),
-        catchError(this.handleError<Film>('deleteFilm'))
-    )
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      console.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
+  /**
+   * Función que borra una película según su id
+   * @param id de la película a borrar
+   */
+  delete(id: number) {
+    if (this.films.find(element => id == element.id)) {
+      alert('La película con id ' + id + ' se ha eliminado correctamente');
+    } else {
+      alert('La id ' + id + ' no se encuentra en la lista');
+    }
   }
 
   constructor(private http: HttpClient) { }

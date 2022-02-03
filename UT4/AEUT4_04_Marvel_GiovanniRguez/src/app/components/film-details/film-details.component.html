@@ -10,15 +10,15 @@
     </div>
   </div>
 </div>
-<div class="col-6">
+<div class="col-6" *ngIf="film">
   <div class="mx-auto mt-auto mb-auto">
     <h5 class="card-title mb-4">Editar Película</h5>
-    <input class="form-control mb-3" type="number" [(ngModel)]="selectedFilm.id" placeholder="id">
-    <input class="form-control mb-3" type="number" [(ngModel)]="selectedFilm.age" placeholder="año">
-    <input class="form-control mb-3" type="text" [(ngModel)]="selectedFilm.name" placeholder="nombre">
-    <input class="form-control mb-4" type="text" [(ngModel)]="selectedFilm.image" placeholder="imagen">
-    <input class="form-control mb-4" type="text" [(ngModel)]="selectedFilm.synopsis" placeholder="sinopsis">
-    <button class="btn btn-primary" (click)="update(selectedFilm)">Enviar</button>
-    <button class="btn btn-danger" (click)="delete(selectedFilm.id)">Borrar</button>
+    <input class="form-control mb-3" type="number" [(ngModel)]="film.id" placeholder="id">
+    <input class="form-control mb-3" type="number" [(ngModel)]="film.age" placeholder="año">
+    <input class="form-control mb-3" type="text" [(ngModel)]="film.name" placeholder="nombre">
+    <input class="form-control mb-4" type="text" [(ngModel)]="film.image" placeholder="imagen">
+    <input class="form-control mb-4" type="text" [(ngModel)]="film.synopsis" placeholder="sinopsis">
+    <button class="btn btn-primary" (click)="update(film)">Enviar</button>
+    <button class="btn btn-danger" (click)="delete(film.id)">Borrar</button>
   </div>
 </div>

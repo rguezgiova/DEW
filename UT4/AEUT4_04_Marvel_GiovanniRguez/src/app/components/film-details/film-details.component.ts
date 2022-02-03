@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Film } from "../film/film";
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { FilmService } from "../../services/film.service";
 
 @Component({
@@ -13,21 +12,27 @@ export class FilmDetailsComponent implements OnInit {
   edit = false;
   readMore = false;
   films: Film[] = [];
-  selectedFilm: Film[] = [];
+  film?: Film
 
-  select(film: Film): void {
-    this.selectedFilm = [];
-    this.edit = true;
-  }
-
+  /**
+   * Función que eliminar una película según su id
+   * @param id de la película a eliminar
+   */
   delete(id: number) {
     this.filmService.delete(id);
   }
 
-  update(film: Film): void {
+  /**
+   * Función que actualiza una película
+   * @param film de la película a actualizar
+   */
+  update(film: Film) {
     this.filmService.update(film)
   }
 
+  /**
+   * Función que obtiene una película según su id
+   */
   getFilm(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.filmService.getFilm(id).subscribe(film => this.film = film);
@@ -42,9 +47,4 @@ export class FilmDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getFilm();
   }
-
-  /**
-   * Decorador Imput con el valor del componente padre
-   */
-  @Input() film?: Film;
 }
