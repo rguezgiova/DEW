@@ -1,24 +1,31 @@
 <div *ngIf="film">
-  <div class="col-6">
-    <div class="card col-6 border-0 mx-auto mt-auto mb-auto">
-      <img src="{{film.image}}" class="card-img-top" alt="{{film.name}}">
-      <div class="card-body">
-        <h5 class="card-title">{{film.name | dotToBracket}}</h5>
-        <p *ngIf="film.name !=''" class="card-text">{{(readMore) ? film.synopsis : film.synopsis | slice:0:300}} <span *ngIf="!readMore"></span>
-          <a href="javascript:" *ngIf="!readMore" (click)="readMore=true">[Leer más]</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="col-6" *ngIf="film">
-  <div class="mx-auto mt-auto mb-auto">
-    <h5 class="card-title mb-4">Editar Película</h5>
-    <input class="form-control mb-3" type="number" [(ngModel)]="film.id" placeholder="id">
-    <input class="form-control mb-3" type="number" [(ngModel)]="film.age" placeholder="año">
-    <input class="form-control mb-3" type="text" [(ngModel)]="film.name" placeholder="nombre">
-    <input class="form-control mb-4" type="text" [(ngModel)]="film.image" placeholder="imagen">
-    <input class="form-control mb-4" type="text" [(ngModel)]="film.synopsis" placeholder="sinopsis">
-    <button mat-raised-button color="primary" (click)="update(film)">Actualizar</button>
-    <button mat-raised-button color="warn" (click)="delete(film.id)">Eliminar</button>
+    <div class="row mt-4">
+        <div class="col-6">
+            <div class="card col-6 border-0 mx-auto mt-auto mb-auto">
+                <img src="{{film.image}}" class="card-img-top" alt="{{film.name}}">
+                <div class="card-body">
+                    <h1 class="card-title">{{film.name | dotToBracket | uppercase}}</h1>
+                    <p *ngIf="film.name !=''"
+                       class="card-text">{{(readMore) ? film.synopsis : film.synopsis | slice:0:300}} <span
+                            *ngIf="!readMore"></span>
+                        <a href="javascript:" *ngIf="!readMore" (click)="readMore=true">[Leer más]</a></p>
+                    <button mat-raised-button color="warn" (click)="delete(film.id)">Eliminar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4" *ngIf="film">
+            <div class="mx-auto mb-4">
+                <iframe [src]="film.trailer" height="272px" width="640px"></iframe>
+            </div>
+            <div class="mx-auto mt-auto mb-auto">
+                <h1 class="card-title mb-4">Editar Película</h1>
+                <input class="form-control mb-3" type="number" [(ngModel)]="film.id" placeholder="id">
+                <input class="form-control mb-3" type="number" [(ngModel)]="film.age" placeholder="año">
+                <input class="form-control mb-3" type="text" [(ngModel)]="film.name" placeholder="nombre">
+                <input class="form-control mb-4" type="text" [(ngModel)]="film.image" placeholder="imagen">
+                <input class="form-control mb-4" type="text" [(ngModel)]="film.synopsis" placeholder="sinopsis">
+                <button mat-raised-button color="primary" (click)="update(film)">Actualizar</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Film } from "../components/film/film";
-import { FILMS } from "../mocks/mock-film";
 import { HttpClient } from "@angular/common/http";
 import { FetchData } from "../interfaces/fetch-data";
 import { Observable, of } from "rxjs";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 @Injectable({
   providedIn: 'root'
@@ -15,17 +15,14 @@ export class FilmService {
   /**
    * Función que recoge el listado de películas
    */
-  getData() {
+  getFilms() {
      this.http.get<FetchData>(this.urlFilms).subscribe(data => {
       data.data.forEach(element => {
-        let film = new Film(element.id, element.title, element.cover_url, element.release_date, element.overview);
+        let url: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(element.trailer_url);
+        let film = new Film(element.id, element.title, element.cover_url, element.release_date, element.overview, url);
         this.films.push(film);
       });
     });
-  }
-
-  getFilms(): Observable<Film[]> {
-    return of(this.films);
   }
 
   /**
@@ -33,7 +30,7 @@ export class FilmService {
    * @param id del elemento a buscar
    */
   getFilm(id: number): Observable<Film> {
-    const film = FILMS.find(f => f.id === id)!;
+    const film = this.films.find(f => f.id === id)!;
     return of(film)
   }
 
@@ -72,5 +69,5 @@ export class FilmService {
     }
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 }

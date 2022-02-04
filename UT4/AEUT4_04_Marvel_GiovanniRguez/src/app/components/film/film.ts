@@ -1,17 +1,20 @@
 /**
  * Clase Film
  */
+import {SafeResourceUrl} from "@angular/platform-browser";
+
 export class Film {
   id: number;
   name: string;
   image: string;
   age: string;
   synopsis: string;
+  trailer: SafeResourceUrl;
 
   /**
    * Constructor de la clase Film
    */
-  constructor(id: number, name: string, image: string, age: string, synopsis: string) {
+  constructor(id: number, name: string, image: string, age: string, synopsis: string, trailer: SafeResourceUrl) {
     if (id == null || id < 0) {
       this.id = 0;
     } else {
@@ -36,6 +39,11 @@ export class Film {
       this.synopsis = "";
     } else {
       this.synopsis = synopsis;
+    }
+    if (trailer == null) {
+      this.trailer = "";
+    } else {
+      this.trailer = trailer;
     }
   }
 }

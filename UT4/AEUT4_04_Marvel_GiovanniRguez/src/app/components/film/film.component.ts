@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Film } from "./film";
 import { FilmService } from "../../services/film.service";
-import { MatCardModule } from "@angular/material/card";
 
 @Component({
   selector: 'app-film',
@@ -22,13 +21,6 @@ export class FilmComponent implements OnInit {
    */
   getFilms() {
     this.films = this.filmService.films;
-    this.filmService.getData();
+    this.filmService.getFilms();
   }
-
-  /**
-   *
-  add() {
-    this.filmService.add(this.newFilm);
-  }
-   */
 }

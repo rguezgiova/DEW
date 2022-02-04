@@ -3,6 +3,7 @@ import { Film } from "../film/film";
 import { ActivatedRoute } from '@angular/router';
 import { FilmService } from "../../services/film.service";
 import { Location } from "@angular/common";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   selector: 'app-film-details',
