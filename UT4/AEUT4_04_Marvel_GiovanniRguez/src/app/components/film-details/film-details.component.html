@@ -18,7 +18,7 @@
     <input class="form-control mb-3" type="text" [(ngModel)]="film.name" placeholder="nombre">
     <input class="form-control mb-4" type="text" [(ngModel)]="film.image" placeholder="imagen">
     <input class="form-control mb-4" type="text" [(ngModel)]="film.synopsis" placeholder="sinopsis">
-    <button class="btn btn-primary" (click)="update(film)">Enviar</button>
-    <button class="btn btn-danger" (click)="delete(film.id)">Borrar</button>
-  </div>
+    <button mat-raised-button color="primary" (click)="update(film)">Actualizar</button>
+    <button mat-raised-button color="warn" (click)="delete(film.id)">Eliminar</button>
+    </div>
 </div>

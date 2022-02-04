@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Film } from "./film";
 import { FilmService } from "../../services/film.service";
+import { MatCardModule } from "@angular/material/card";
 
 @Component({
   selector: 'app-film',
@@ -9,8 +10,6 @@ import { FilmService } from "../../services/film.service";
 })
 export class FilmComponent implements OnInit {
   films: Film[] = [];
-  selectedFilm?: Film;
-  //newFilm: Film = new Film();
 
   constructor(private filmService: FilmService) { }
 
@@ -23,7 +22,7 @@ export class FilmComponent implements OnInit {
    */
   getFilms() {
     this.films = this.filmService.films;
-    this.filmService.getFilms();
+    this.filmService.getData();
   }
 
   /**

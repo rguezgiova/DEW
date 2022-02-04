@@ -15,13 +15,17 @@ export class FilmService {
   /**
    * Función que recoge el listado de películas
    */
-  getFilms() {
+  getData() {
      this.http.get<FetchData>(this.urlFilms).subscribe(data => {
       data.data.forEach(element => {
         let film = new Film(element.id, element.title, element.cover_url, element.release_date, element.overview);
         this.films.push(film);
       });
     });
+  }
+
+  getFilms(): Observable<Film[]> {
+    return of(this.films);
   }
 
   /**

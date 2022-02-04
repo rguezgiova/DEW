@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Film } from "../film/film";
 import { ActivatedRoute } from '@angular/router';
 import { FilmService } from "../../services/film.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-film-details',
@@ -11,7 +12,6 @@ import { FilmService } from "../../services/film.service";
 export class FilmDetailsComponent implements OnInit {
   edit = false;
   readMore = false;
-  films: Film[] = [];
   film?: Film
 
   /**

@@ -3,13 +3,13 @@
     <div class="col-12">
       <div class="row">
         <div id="card" class="card col-4 border-0 mx-auto mt-auto mb-auto" *ngFor="let film of films">
-          <div *ngIf="film.synopsis | unreleasedFilm">
-            <a routerLink="/detail/{{film.id}}"><img src="{{film.image}}" class="card-img-top" alt="{{film.name}}"></a>
-            <div class="card-body">
-              <h5 class="card-title">{{film.name | dotToBracket}}</h5>
-              <p class="card-text">{{film.age | phaseCalculator}}</p>
-            </div>
-          </div>
+          <mat-card class="film-card" *ngIf="film.synopsis | unreleasedFilm">
+            <a routerLink="/detail/{{film.id}}"><img class="film-image" src="{{film.image}}" alt="{{film.name}}"></a>
+            <mat-card-content>
+              <h5>{{film.name}}</h5>
+              <p>{{film.age | phaseCalculator}}</p>
+            </mat-card-content>
+          </mat-card>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
         <input class="form-control mb-3" type="text" placeholder="nombre">
         <input class="form-control mb-4" type="text" placeholder="imagen">
         <input class="form-control mb-4" type="text" placeholder="sinopsis">
-        <!-- <button class="btn btn-primary" (click)="add(newFilm)">Enviar</button> -->
+        <!-- <button mat-raised-button color="primary"   (click)="add(newFilm)">Enviar</button> -->
       </div>
     </div>
   </div>
