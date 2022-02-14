@@ -1,0 +1,17 @@
+<div *ngIf="planet">
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card col-12 border-0 mx-auto mt-auto mb-auto">
+        <div class="card-body">
+          <h1 class="card-title">{{planet.name | uppercase}}</h1>
+          <p>{{planet.rotation_period | rotationPeriod}}</p>
+          <p>{{planet.orbital_period | orbitalPeriod}}</p>
+          <p>{{planet.climate}}</p>
+          <p>{{planet.gravity}}</p>
+          <p>{{planet.terrain}}</p>
+          <p>{{planet.surface_water}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
