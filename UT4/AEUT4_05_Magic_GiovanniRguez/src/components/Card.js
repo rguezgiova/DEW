@@ -1,24 +1,18 @@
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React, {Component } from "react";
 
-const Card = (props) => {
-    return (
-        <>
-            <Link to={`/detail/${props.name}`}></Link>
-            <li className="card">
-                <img src={props.image} alt={props.name} className="card-image"/>
-                <main className="card-info">
-                    <h3 className="card-name">{props.name}</h3>
-                    <button>Add to Deck</button>
-                </main>
-            </li>
-        </>
-    );
-};
+export class Card extends Component {
+    render() {
+        const {name, image} = this.props.data;
 
-Card.propTypes = {
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+        return (
+            <div className="card-item">
+                <div className="card-info">
+                        <img src={image} alt={name} className="card-image"/>
+                </div>
+                <h2 className="card-title">{name}</h2>
+            </div>
+        );
+    }
 }
 
 export default Card;

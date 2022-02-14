@@ -1,23 +1,47 @@
-import '../App.css';
-import {useState} from "react";
+import React, { Component } from "react";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import getCard from "../services/FetchData";
 
-function App() {
-  const [card, setCard] = useState("");
-  const [nameFilter, setNameFilter] = useState("all");
-  return (
-      <div className="App">
-        <Header renderUnfilteredList={renderUnfilteredList} />
-        <main>
-          <Switch>
-            <Route exact path="/">
-              <Filter handleFilter={handleFilter} />
-              <CharacterList filteredChars={filteredChars} />
-            </Route>
-            <Route exact path="/char/:id" render={renderCharDetail} />
-          </Switch>
-        </main>
-      </div>
-  );
+class App extends Component {
+    constructor() {
+        super();
+    }
+
+    state = {
+        cardList: [],
+        cardName: "",
+        cardImage: "",
+    };
+
+    async component() {
+        const cardList = await getCard();
+        this.cardListCopy = cardList;
+        this.setState({
+            cardList: cardList
+        });
+    }
+
+    async onPageChanged(data) {
+        const { currentPage } = data;
+        const cardList = await getCard(currentPage);
+        this.setState({currentPage, cardList});
+    }
+
+    render() {
+        const {cardList, cardName, cardImage} = this.state;
+
+        return(
+            <Router>
+                <div className="App">
+                    <Route exact render={props => (
+                        <div className="container main-content">
+                            <div className="row">
+                                div
+                            </div>
+                        </div>
+                    )}/>
+                </div>
+            </Router>
+        );
+    }
 }
-
-export default App;
