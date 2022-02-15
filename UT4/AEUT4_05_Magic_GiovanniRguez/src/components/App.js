@@ -1,47 +1,68 @@
-import React, { Component } from "react";
-import {BrowserRouter as Router, Route} from "react-router-dom";
-import getCard from "../services/FetchData";
+import {useEffect, useState} from "react";
 
-class App extends Component {
-    constructor() {
-        super();
-    }
+export default  function App() {
+    let urlCards = 'https://api.scryfall.com/cards/search?order=set&q=e%3Augin&unique=prints';
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const response = await fetch(urlCards);
+                if (!response.ok) {
+                    throw new Error(
+                        `This is an HTTP error: The status is ${response.status}`
+                    );
+                }
+                let data = await response.json();
+                setData(data.data);
+                setError(null);
+            } catch(err) {
+                setError(err.message);
+                setData(null);
+            } finally {
+                setLoading(false);
+            }
+        }
+        getData();
+    }, [])
 
-    state = {
-        cardList: [],
-        cardName: "",
-        cardImage: "",
-    };
-
-    async component() {
-        const cardList = await getCard();
-        this.cardListCopy = cardList;
-        this.setState({
-            cardList: cardList
-        });
-    }
-
-    async onPageChanged(data) {
-        const { currentPage } = data;
-        const cardList = await getCard(currentPage);
-        this.setState({currentPage, cardList});
-    }
-
-    render() {
-        const {cardList, cardName, cardImage} = this.state;
-
-        return(
-            <Router>
-                <div className="App">
-                    <Route exact render={props => (
-                        <div className="container main-content">
-                            <div className="row">
-                                div
-                            </div>
+    return (
+        <div className="App">
+            <div className="container-fluid">
+                {loading && <div><h1>Cargando...</h1></div>}
+                {error && (
+                    <div>{`There is a problem fetching the post data - ${error}`}</div>
+                )}
+                <div className="row">
+                    <div className="col-9">
+                        <div className="row">
+                            {data &&
+                                data.map(({ name, image_uris }) => (
+                                    <div className="card col-3 mt-2">
+                                        <img className="card-img-top" src={image_uris.large} alt={name}/>
+                                        <div className="card-body align-content-center">
+                                            <h5 className="card-title">{name}</h5>
+                                            <button className="btn btn-primary">Add to deck</button>
+                                        </div>
+                                    </div>
+                                ))}
                         </div>
-                    )}/>
+                    </div>
+                    <div className="col-3">
+                        <table className="table" id="table-cards">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
-            </Router>
-        );
-    }
+            </div>
+        </div>
+    );
 }
