@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio1</title>
+</head>
+<body>
+    <script>
+        /**
+         * Función que te genera una IP aleatoria
+         * @param clase de la IP
+         * @returns IP generada aleatoriamente
+         */
+        function generarIp(clase) {
+            let resultado = "";
+            switch (clase) {
+                case 'a':
+                    resultado += generarNumeroRandom(0, 126);
+                    for (let i = 0; i < 3; i++) {
+                        resultado += "." + generarNumeroRandom(0, 255);
+                    }
+                    return resultado;
+                    break;
+                case 'b':
+                    resultado += generarNumeroRandom(127, 191);
+                    for (let i = 0; i < 3; i++) {
+                        resultado += "." + generarNumeroRandom(0, 255);
+                    }
+                    return resultado;
+                    break;
+                case 'c':
+                    resultado += generarNumeroRandom(192, 223);
+                    for (let i = 0; i < 3; i++) {
+                        resultado += "." + generarNumeroRandom(0, 255);
+                    }
+                    return resultado;
+                    break;
+                case 'd':
+                    resultado += generarNumeroRandom(224, 239);
+                    for (let i = 0; i < 3; i++) {
+                        resultado += "." + generarNumeroRandom(0, 255);
+                    }
+                    return resultado;
+                    break;
+                case 'e':
+                    resultado += generarNumeroRandom(240, 255);
+                    for (let i = 0; i < 3; i++) {
+                        resultado += "." + generarNumeroRandom(0, 255);
+                    }
+                    return resultado;
+                    break;
+                default:
+                    alert('Error');
+                    break;
+            }
+        }
+
+        /**
+         * Función que genera un número aleatorio entre un rango
+         * @param min del rango
+         * @param max del rango
+         * @returns {number} aleatorio
+         */
+        function generarNumeroRandom(min, max) {
+            return Math.floor(Math.random() * (max + min) + min);
+        }
+
+        let clases = ['a', 'b', 'c', 'd', 'e'];
+        let clase = prompt('Introduce la clase de IP a generar').toLowerCase();
+
+        if (clases.includes(clase)) {
+            alert(generarIp(clase));
+        } else {
+            alert('Escoge una opción válida');
+        }
+    </script>
+</body>
+</html>

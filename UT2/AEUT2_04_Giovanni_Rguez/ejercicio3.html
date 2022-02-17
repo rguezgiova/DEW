@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio3</title>
+</head>
+<body>
+    <script>
+        let array = [];
+        let input;
+
+        do {
+            input = parseInt(prompt('Introduce un número\nSe te pedirá hasta que sea menor a 1 o mayor a 50'))
+            if (isNaN(input)) {
+                alert('Solo se puede introducir números');
+                input = 14;
+            } else {
+                array.push(input);
+            }
+        } while (input >= 1 && input <= 50);
+        array = array.reverse();
+        alert('Los números en orden son:\n' + array);
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+*{
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    flex: 0 0 auto;
+}
+.list{
+    display: flex;
+flex-wrap: wrap;
+}
+.img_pk{
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+}
+
+#cont_principal,
+#cont_recoger,
+#cont_json {
+    border: 2px solid grey;
+    background-color:  #ebebeb;
+    margin: 30px;
+    padding: 10px;
+    width: 550px;
+     font-size: 12px;
+}
+select, input{
+    margin: 10px;
+}
+#cont_principal  button,
+#cont_recoger button{
+    background-color:  white;
+    margin: 10px;
+}
+textarea{
+    width: 100%;
+}
+
+#cont_principal,
+#cont_json {
+    display: block;
+}
+
+#items, #mochila{
+    
+    width: 600px;
+    float: left;
+    height: auto;
+    background-color:  #ebebeb ;
+    margin: 30px;
+    padding: 20px;
+     align-items: center;
+}
+#items div{
+    font-size: 12px;
+    margin: 10px;
+}
+#items>div:last-child{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
+}
+#items div button{
+    padding: 5px 20px;
+}
+h2{
+    text-align: center;
+    margin: 10px 10px 20px 10px;
+}

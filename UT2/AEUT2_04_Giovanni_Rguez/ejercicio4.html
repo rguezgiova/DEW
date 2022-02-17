@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio4</title>
+</head>
+<body>
+    <script>
+        let letras = [0, 0, 0, 0];
+        let input = prompt('Introduce una frase');
+        let frase = input.split("");
+
+        for (let i = 0; i < frase.length; i++) {
+            let char = frase[i].toLowerCase();
+            switch (char) {
+                case 'a':
+                    letras[0]++;
+                    break;
+                case 'á':
+                    letras[0]++;
+                case 'b':
+                    letras[1]++;
+                    break;
+                case 'c':
+                    letras[2]++;
+                    break;
+                case 'd':
+                    letras[3]++;
+                    break;
+            }
+        }
+        alert(`${input}\nEl número de a's es: ${letras[0]}\nEl número de b's es: ${letras[1]}\nEl número de c's es: ${letras[2]}\nEl número de d's es: ${letras[3]}`);
+    </script>
+</body>
+</html>

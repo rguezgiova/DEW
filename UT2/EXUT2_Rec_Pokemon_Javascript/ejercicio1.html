@@ -1,0 +1,69 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <title>17/02/22 - Examen: Ejercicio 1</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <h1>Ejercicio 1</h1>
+    <div id="items">
+        <h2>My Pokemons</h2>
+        <div class="list">
+            <div class="card" name="item1">
+                <img  class="img_pk" src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg" alt="">
+                <div id="bulbasaur">
+                    <span>Bulbasaur</span> -
+                    <span class="attack">49</span> Attack
+                </div>
+                <button value="bulbasaur" onclick="addPokemon();">Seleccionar</button>
+            </div>
+            <div class="card" name="item2">
+                <img  class="img_pk" src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/2.svg" alt="">
+                <div id="ivysaur">
+                    <span>Ivysaur</span> -
+                    <span class="attack">62</span> Attack
+                </div>
+                <button value="ivysaur" onclick="addPokemon();">Seleccionar</button>
+            </div>
+            <div class="card" name="item3">
+                <img class="img_pk" src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/3.svg" alt="">
+                <div id="venusaur">
+                    <span>Venusaur</span> -
+                    <span class="attack">82</span> Attack
+                </div>
+                <button value="venusaur" onclick="addPokemon();">Seleccionar</button>
+            </div>
+            <div class="card" name="item4">
+                <img  class="img_pk" src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/4.svg" alt="">
+                <div id="charmander">
+                    <span>Charmander</span> -
+                    <span class="attack">52</span> Attack
+                </div>
+                <button value="charmander" onclick="addPokemon();">Seleccionar</button>
+            </div>
+            <div class="card" name="item5">
+                <img class="img_pk" src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/5.svg" alt="">
+                <div id="charmeleon">
+                    <span>Charmeleon</span> -
+                    <span class="attack">64</span> Attack
+                </div>
+                <button value="charmeleon" onclick="addPokemon();">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+    <div id="mochila">
+        <h2>Selección para el combate</h2>
+        <div id="daño">
+            <p><strong>Total attack: </strong><span></span></p>
+        </div>
+    </div>
+    <template id="template-nombre">
+        <p></p>
+    </template>
+    <script src="assets/js/ejercicio1.js"></script>
+</body>
+</html>

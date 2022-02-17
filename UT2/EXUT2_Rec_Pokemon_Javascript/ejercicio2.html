@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title>17-02-22 - Examen: Ejercicio 2</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <h1>Ejercicio 2</h1>
+    <div id="catchContainer">
+        <select id="tipo">
+            <option value="1">Pokémon</option>
+            <option value="0">Huevo</option>
+        </select>
+        <select id="raza">
+            <option value="Pikachu">Pikachu</option>
+            <option value="Charmander">Charmander</option>
+            <option value="Bulbasaur">Bulbasaur</option>
+            <option value="Pidgey">Pidgey</option>
+            <option value="Rattata">Rattata</option>
+            <option value="Kakuna">Kakuna</option>
+        </select>
+        <input type="text" id="name" />
+        <button id="catchButton" onclick="getCreature();">Recibir Criatura</button>
+    </div>
+    <div id="mainPokemonContainer">
+        <select id="pokemonContainer">
+        </select>
+        <button>Establecer como principal</button>
+    </div>
+
+    <div id="resultContainer">
+        <textarea></textarea>
+    </div>
+
+    <template id="template-pokemon">
+        <option></option>
+    </template>
+
+    <script src="assets/js/classes/persona.class.js"></script>
+    <script src="assets/js/classes/pokemon.class.js"></script>
+    <script src="assets/js/ejercicio2.js"></script>
+</body>
+
+</html>

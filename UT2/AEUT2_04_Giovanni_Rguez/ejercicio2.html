@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio2</title>
+</head>
+<body>
+<script>
+    /**
+     * Función que calcula los impares entre dos números
+     * @param num1 a comprobar
+     * @param num2 a comprobar
+     * @returns array con los números
+     */
+    function impares(num1, num2) {
+        let max;
+        let min;
+        let impares = [];
+
+        if(num1 < num2) {
+            max = num2;
+            min = num1;
+        } else if (num2 < num1) {
+            max = num1;
+            min = num2;
+        } else {
+            return false;
+        }
+
+        if( min % 2 === 0) {
+            min++
+        }
+
+        for (let i = min; i <= max; i += 2) {
+            impares.push(i);
+        }
+        return impares;
+    }
+
+    let num1 = parseInt(prompt('Introduce el primer número'));
+    let num2 = parseInt(prompt('Introduce el segundo número'));
+    if (isNaN(num1) || isNaN(num2)) {
+        alert('Introduzca solo números');
+    } else {
+        alert('Los números impares del rango son: ' + impares(num1, num2));S
+    }
+</script>
+</body>
+</html>

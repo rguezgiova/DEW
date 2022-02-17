@@ -1,0 +1,58 @@
+*{
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    
+}
+#mainPokemonContainer,
+#catchContainer,
+#resultContainer {
+    border: 2px solid grey;
+    background-color:  #ebebeb;
+    margin: 30px;
+    padding: 10px;
+    width: 550px;
+     font-size: 12px;
+}
+select, input{
+    margin: 10px;
+}
+#mainPokemonContainer  button,
+#catchContainer button{
+    background-color:  white;
+    margin: 10px;v
+}
+textarea{
+    width: 100%;
+}
+
+#mainPokemonContainer,
+#resultContainer {
+    display: block;
+}
+
+#articulos, #carrito{
+    
+    width: 300px;
+    float: left;
+    height: 330px;
+    background-color:  #ebebeb ;
+    margin: 30px;
+    padding: 20px;
+     align-items: center;
+}
+#articulos div{
+    font-size: 12px;
+    margin: 10px;
+}
+#articulos>div:last-child{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
+}
+#articulos div button{
+    padding: 5px 20px;
+}
+h2{
+    text-align: center;
+    margin: 10px 10px 20px 10px;
+}
