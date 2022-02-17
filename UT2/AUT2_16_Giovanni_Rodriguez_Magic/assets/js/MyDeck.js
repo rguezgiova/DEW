@@ -5,13 +5,13 @@ var myDeck = loadDeck();
  * @param id
  */
 function addMyDeck(id) {
-    deck.getCards.forEach(card => {
-        if (card[0].getId == id) {
+    deck.getDeck.forEach(card => {
+        if (card[0].getId === id) {
             myDeck.addCard(card[0]);
             saveDeck(myDeck);
         }
     });
-    drawChosen(myDeck.getCards);
+    drawChosen(myDeck.getDeck);
 }
 
 /**
@@ -19,12 +19,9 @@ function addMyDeck(id) {
  * @param id de la carta
  */
 function removeMyDeck(id) {
-    console.log(id);
-
     myDeck.removeCard(id);
     saveDeck(myDeck);
-
-    drawChosen(myDeck.getCards);
+    drawChosen(myDeck.getDeck);
 }
 
 /**
@@ -41,10 +38,9 @@ function saveDeck(deck) {
  */
 function loadDeck() {
     let loadData = JSON.parse(localStorage.getItem("MyDeck"));
-
     let deck = new Deck();
     if (loadData != null) {
-        if (loadData.cards.length == 0) {
+        if (loadData.deck.length === 0) {
             saveDeck(deck);
         } else {
             let cards = loadData['cards'];
@@ -78,7 +74,6 @@ function jsonToDeck(cards) {
         let rarity = element[0].rarity;
         let card = new Card(id, name, price, set, color, type, cost, power, toughness, img, url, rarity);
         let count = element[1];
-
         tmpCards.push([card, count]);
     });
     return new Deck(tmpCards);
@@ -91,27 +86,38 @@ function jsonToDeck(cards) {
  */
 function filterDeck(color, cost) {
     let filteredDeck = [];
-
-    console.log(color);
-    if (color != "all" && cost != "") {
-        myDeck.getCards.forEach(element => {
-            if (element[0].getColor == color && element[0].getCost == cost) {
+    if (color !== "all" && cost !== "") {
+        myDeck.getDeck.forEach(element => {
+            if (element[0].getColor === color && element[0].getCost === cost) {
                 filteredDeck.push(element);
             }
         });
-    } else if (color != "all") {
-        myDeck.getCards.forEach(element => {
-            if (element[0].getColor == color) {
+    } else if (color !== "all") {
+        myDeck.getDeck.forEach(element => {
+            if (element[0].getColor === color) {
                 filteredDeck.push(element);
             }
         });
-    } else if (cost != "") {
-        myDeck.getCards.forEach(element => {
-            if (element[0].getCost == cost) {
+    } else if (cost !== "") {
+        myDeck.getDeck.forEach(element => {
+            if (element[0].getCost === cost) {
                 filteredDeck.push(element);
             }
         });
     }
+    drawMyDeck(filteredDeck);
+}
 
+/**
+ * Función que filtra por rareza
+ * @param rarity de la carta
+ */
+function filterRarity(rarity) {
+    let filteredDeck = [];
+    myDeck.getDeck.forEach(element => {
+        if (element[0].getRarity === rarity) {
+            filteredDeck.push(element);
+        }
+    });
     drawMyDeck(filteredDeck);
 }

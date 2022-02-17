@@ -21,9 +21,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="decks.html">My Decks</a>
                 </li>
-                <li class="nav-item" id="logout">
-                    <a class="nav-link">Logout</a>
-                </li>
+            </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <button id="logout" class="btn btn-outline-secondary text-light" type="submit">Logout</button>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search card" aria-label="Search">
@@ -33,27 +33,53 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="decks.html">Decks</a></li>
-        </ol>
-    </nav>
+    <div id="filters" class="row my-3">
+        <div class="col-2 ms-5">
+            <select id="select-color" class="form-select bg-light bg-opacity-75" aria-label="Default select example">
+                <option value="all" selected>Color - All</option>
+                <option value="W">White</option>
+                <option value="U">Blue</option>
+                <option value="B">Black</option>
+                <option value="R">Red</option>
+                <option value="G">Green</option>
+                <option value="X">Uncolored</option>
+            </select>
+        </div>
+        <div class="col-2 ms-5">
+            <input type="number" id="input-cost" class="form-control bg-light bg-opacity-75" placeholder="Mana Cost">
+        </div>
+        <div class="col-2 ms-5">
+            <select id="select-rarity" class="form-select bg-light bg-opacity-75" aria-label="Default select example">
+                <option value="all" selected>Rarity - All</option>
+            </select>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12">
-            <div class="row" id="cards"></div>
+            <div class="row g-4" id="cards"></div>
         </div>
     </div>
-</div>
-<template id="deck-template">
-    <div class="card col-3">
-        <img src="" class="card-img-top" alt="">
-        <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
+    <template id="template-card">
+        <div class="col-2 ms-5">
+            <div class="card border-0 bg-secondary bg-opacity-50 text-light round-corner" style="width: 21rem;">
+                <a href="" target="_blank"><img src="" class="card-img-top round-corner" alt="card"></a>
+                <div class="card-body">
+                    <div class="text-center">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text</p>
+                    </div>
+                    <div class="text-center">
+                        <a id="" class="btn btn-dark">Agregar</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</template>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="assets/js/Card.js"></script>
+    <script src="assets/js/Deck.js"></script>
+    <script src="assets/js/Draw.js"></script>
+    <script src="assets/js/MyDeck.js"></script>
+    <script src="assets/js/UserDeck.js"></script>
 </body>
 </html>

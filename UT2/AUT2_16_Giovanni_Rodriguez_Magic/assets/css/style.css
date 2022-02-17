@@ -28,12 +28,7 @@ a:hover {
     text-decoration: none;
 }
 
-.zoom {
-    transition: transform .2s;
-    margin: 0 auto;
-}
-
-.zoom:hover {
+.card img:hover {
     transform: scale(1.1);
 }
 

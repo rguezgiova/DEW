@@ -3,21 +3,18 @@
  * @param deck a mostrar
  */
 function drawDeck(deck) {
-    var contenido = document.querySelector('#cards');
-    contenido.innerHTML = "";
+    var content = document.querySelector('#cards');
+    content.innerHTML = "";
     deck.forEach(card => {
         const fragment = document.createDocumentFragment();
         const template = document.querySelector("#template-card").content;
-
         template.querySelectorAll("img")[0].src = card[0].getImg;
         template.querySelectorAll("h5")[0].textContent = card[0].getName;
         template.querySelectorAll("p")[0].textContent = card[0].getPrice + "€";
         template.querySelectorAll("a")[0].id = card[0].getId;
-
         const clone = template.cloneNode(true);
         fragment.appendChild(clone);
-
-        contenido.appendChild(fragment);
+        content.appendChild(fragment);
     });
 }
 
@@ -98,6 +95,5 @@ function alertMaxCardsChosen(name) {
  * Función que alerta que se han elegido todas las cartas de un mazo
  */
 function alertMaxCards() {
-    let alert = "<div class='alert alert-danger alert-dismissible fade show' role='alert'></br><strong>Error!</strong> Max 60 cards.</br><button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></br></div></br>";
-    document.getElementById("alert").innerHTML = alert;
+    document.getElementById("alert").innerHTML = "<div class='alert alert-danger alert-dismissible fade show' role='alert'></br><strong>Error!</strong> Max 60 cards.</br><button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></br></div></br>";
 }

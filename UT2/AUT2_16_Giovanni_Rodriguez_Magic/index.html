@@ -19,47 +19,45 @@
                         <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="decks.html">My Decks</a>
+                        <a class="nav-link" href="decks.html" id="myDeckA">My Decks</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li id="decks" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Decks</a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['wel16']);">Welcome Deck 2016</a></li>
+                                <li><a id="wd16" class="dropdown-item" href="#">Welcome Deck 2016</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['wel17']);">Welcome Deck 2017</a></li>
+                                <li><a id="wd17" class="dropdown-item" href="#">Welcome Deck 2017</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['ugins']);">Ugin's Fate</a></li>
+                                <li><a id="ugins" class="dropdown-item" href="#">Ugin's Fate</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['zendikar']);">Zendikar Rising Expeditions</a></li>
+                                <li><a id="zendikar" class="dropdown-item" href="#">Zendikar Rising Expeditions</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="drawCard(urls['two']);">Introductory Two-Player</a></li>
+                                <li><a id="two" class="dropdown-item" href="#">Introductory Two-Player</a></li>
                             </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                            <form>
-                                <li>
-                                    <div class="mb-6">
-                                        <label for="username" class="form-label">Username:</label>
-                                        <input type="text" class="form-control me-2" id="username">
-                                    </div>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <div class="mb-6">
-                                        <label for="password" class="form-label">Password:</label>
-                                        <input type="password" class="form-control me-2" id="password">
-                                    </div>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><button type="submit" class="btn btn-danger">Login</button></li>
-                                <li><div id="errorLogin" style="display: none"><p><span style="color: red">Invalid User/Password</span></p></div></li>
-                            </form>
+                    <li id="language" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Language</a>
+                        <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDropdown">
+                            <li><a id="en" class="dropdown-item text-light" href="#">English</a></li>
+                            <li><a id="es" class="dropdown-item text-light" href="#">Español</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item" id="logout">
-                        <a class="nav-link">Logout</a>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <button id="logout" class="btn btn-outline-secondary text-light" type="submit">Logout</button>
+                    <li id="login" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <form class="mx-2">
+                                <div class="mb-3">
+                                    <input id="user" class="form-control me-2" type="text" placeholder="Username" aria-label="Search">
+                                </div>
+                                <div class="mb-3">
+                                    <input id="password" class="form-control me-2" type="password" placeholder="Password" aria-label="Search">
+                                </div>
+                                <button id="login-btn" class="btn btn-outline-secondary text-light" type="button">Login</button>
+                            </form>
+                        </ul>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -69,53 +67,74 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid" id="container-body">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="decks.html">Decks</a></li>
-            </ol>
-        </nav>
-            <div class="row">
-                <div class="col-9">
-                    <div class="row" id="cards"></div>
-                </div>
-                <div class="col-3">
-                    <table class="table" id="table-cards">
-                        <tr>
-                            <td>Name</td>
-                            <td>Price</td>
-                            <td>Increase</td>
-                            <td>Decrease</td>
-                            <td>Amount</td>
-                        </tr>
-                    </table>
-                </div>
+    <div class="container-fluid bg-transparent">
+        <div class="row">
+            <div class="col-8 ps-5">
+                <div class="row g-4" id="cards"></div>
             </div>
-    </div>
-    <template id="deck-template">
-        <div class="card col-3 border-0">
-            <img src="" class="card-img-top zoom" alt="" id="imgCard">
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text"></p>
-                <button type="submit" onclick="addToDeck(this.attributes.id.nodeValue);" class="btn btn-danger" id=""></button>
+            <div class="col-4 pe-5">
+                <table id="selected" class="table table-sm table-bordered bg-dark bg-opacity-75 text-light">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody id="items"></tbody>
+                    <tfoot>
+                    <tr id="footer" class="text-end">
+                        <th id="empty" scope="row" colspan="5">Empty list - Start selecting cards!</th>
+                        <td id="totalCards" colspan="3"></td>
+                        <td id="totalPrice" colspan="2"><span class="me-4">€</span></td>
+                    </tr>
+                    <tr>
+                        <td id="alert" colspan="5"></td>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
-    </template>
-    <template id="table-template">
+        <template id="template-footer">
+            <th id="empty" scope="row" colspan="5">Empty list - Start selecting cards!</th>
+        </template>
+        <template id="template-chosen">
             <tr>
-                <td></td>
-                <td></td>
-                <td><button class="btn btn-danger" onclick="increase();">+</button></td>
-                <td><button class="btn btn-danger" onclick="decrease();">-</button></td>
-                <td></td>
+                <th scope="row">carta1</th>
+                <td>5€</td>
+                <td>2</td>
+                <td id="">
+                    <button class="btn btn-info btn-sm">+</button>
+                    <button class="btn btn-danger btn-sm">-</button>
+                </td>
+                <td><span>10</span> €</td>
             </tr>
-    </template>
+        </template>
+        <template id="template-card">
+            <div class="col-3">
+                <div class="card border-0 bg-secondary bg-opacity-50 text-light round-corner" style="width: 18rem;">
+                    <img src="" class="card-img-top round-corner" alt="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text"></p>
+                        </div>
+                        <div class="text-center">
+                            <a id="" class="btn btn-danger">Agregar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="assets/js/Index.js"></script>
     <script src="assets/js/Card.js"></script>
-    <script src="assets/js/CriatureCard.js"></script>
     <script src="assets/js/Deck.js"></script>
+    <script src="assets/js/Request.js"></script>
+    <script src="assets/js/Fetch.js"></script>
+    <script src="assets/js/Draw.js"></script>
+    <script src="assets/js/MyDeck.js"></script>
+    <script src="assets/js/Index.js"></script>
 </body>
 </html>

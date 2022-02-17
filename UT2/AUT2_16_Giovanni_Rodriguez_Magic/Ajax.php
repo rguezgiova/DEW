@@ -1,10 +1,10 @@
 <?php
-    $recibido = $_GET;
+    $credentials = $_GET;
 
-    if ($recibido['usuario'] == 'user' && $recibido['password'] == 'user') {
-        $devuelve = '{ "validation" : "true" }';
+    if ($credentials['user'] == 'daw' && $credentials['password'] == '123456') {
+        $return = '{ "validation" : "true" }';
     } else {
-        $devuelve = '{ "validation" : "false" }';
+        $return = '{ "validation" : "false" }';
     }
-    echo $devuelve;
+    echo $return;
 ?>
