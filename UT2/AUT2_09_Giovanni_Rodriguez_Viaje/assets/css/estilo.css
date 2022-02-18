@@ -8,6 +8,16 @@ html, body {
 body {
   background: linear-gradient(50deg, #f3c680, rgba(161, 227, 226, 1));
 }
+
+.error {
+  background-color: red;
+  color: white;
+}
+.valido {
+  background-color: green;
+  color: white;
+}
+
 /*-------------------- Buttons --------------------*/
 .btn {
   /*display: block;*/

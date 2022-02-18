@@ -4,40 +4,199 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Solicitud Viaje en Barco</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/estilo.css"/>    
+    <title>Validaciones Solicitud Viaje en Barco</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/estilo.css"/>
+    <script>
+        /**
+         * Función que crea un input nuevo dentro de un div al formulario o borrarlo
+         */
+        function otroCp() {
+            let codigoPostal = document.getElementById('codigo_postal').value;
+            if (codigoPostal === 'Otro') {
+                let div = document.createElement('div');
+                let input = document.createElement('input');
+                input.type = 'text';
+                input.id = 'otroCp';
+                input.className = 'input-form';
+                div.appendChild(input);
+                let insertar = document.getElementById('cp');
+                insertar.appendChild(div);
+                input.addEventListener('change', function (){validarCp(input.value)});
+            } else {
+                let element = document.getElementById('otroCp');
+                if (element) {
+                    element.remove();
+                }
+            }
+        }
+
+        /**
+         * Función que crea los inputs si se necesitan
+         */
+        function datosVehiculo() {
+            let vehiculo = document.getElementById('vehiculo').value;
+            if (vehiculo === 'si') {
+                let div = document.createElement('div');
+                let lblMarca = document.createElement('label');
+                lblMarca.id = 'label-marca';
+                lblMarca.innerText = 'Marca';
+                let marca = document.createElement('input');
+                marca.type = 'text';
+                marca.id = 'marca';
+                marca.className = 'input-form';
+                let lblMatricula = document.createElement('label');
+                lblMatricula.id = 'label-matricula';
+                lblMatricula.innerText = 'Matricula';
+                let matricula = document.createElement('input');
+                matricula.type = 'text';
+                matricula.id = 'matricula';
+                matricula.className = 'input-form';
+                matricula.placeholder = '1111-AAA';
+                div.appendChild(lblMarca);
+                div.appendChild(marca);
+                div.appendChild(lblMatricula);
+                div.appendChild(matricula);
+                let insertar = document.getElementById('field-vehiculo');
+                insertar.appendChild(div);
+                matricula.addEventListener('change', function (){validarMatricula(matricula.value)})
+            } else {
+                let lblMarca = document.getElementById('label-marca');
+                let lblMatricula = document.getElementById('label-matricula');
+                let marca = document.getElementById('marca');
+                let matricula = document.getElementById('matricula');
+                if (marca) {
+                    lblMarca.remove();
+                    lblMatricula.remove();
+                    marca.remove();
+                    matricula.remove();
+                }
+            }
+        }
+
+        /**
+         * Función que recoge los datos y los guarda
+         */
+        function guardarDatos() {
+            let errores = document.getElementsByClassName('error');
+            console.log(errores.length);
+
+            if (errores > 0) {
+                alert('Existe campos erróneos');
+            } else {
+                let tmpCp = document.getElementById('codigo_postal').value;
+                if (tmpCp === 'Otro') {
+                    tmpCp = document.getElementById('otroCp').value;
+                }
+                let nombre = document.getElementById('nombre').value;
+                let apellidos = document.getElementById('apellidos').value;
+                let dni = document.getElementById('dni').value;
+                let cp = tmpCp;
+                let movil = document.getElementById('movil').value;
+                let fijo = document.getElementById('fijo').value;
+                let fecha = document.getElementById('fecha').value;
+                let email = document.getElementById('email').value;
+                let vehiculo = document.getElementById('vehiculo').value;
+                if (vehiculo === 'si') {
+                    var matricula = document.getElementById('matricula').value;
+                } else {
+                    var matricula = null;
+                }
+                let motivo = document.getElementById('motivo').value;
+                let formulario = new Formulario(nombre, apellidos, dni, cp, fijo, movil, fecha, email, matricula, motivo);
+                console.log(formulario);
+            }
+        }
+    </script>
+</head>
 <body>
-    <div class="checkout">
-        <div>
-            <p class="title"> Travel request </p>
-        </div>
-        <form class="form" autocomplete="off">
+<div class="checkout">
+    <div>
+        <p class="title"> Travel request </p>
+    </div>
+    <form class="form" id="form" autocomplete="off" novalidate>
         <fieldset>
-            <label for="in_name">Name</label>
-            <input type="text" id="in_name" pattern="/^[a-zA-Z]*$/g" class="input-form" maxlength="10" />
-        </fieldset>F
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" class="input-form" maxlength="10" onchange="validarNombre(this.value)"/>
+        </fieldset>
         <fieldset class="fieldset_surename">
-            <label for="in_surname">Surname</label>
-            <input type="text" id="in_surname" pattern="/^[a-zA-Z]*$/g" class="input-form" maxlength="10" />
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos" class="input-form" maxlength="10" onchange="validarApellidos(this.value)"/>
         </fieldset>
         <fieldset class="fieldset_dni">
-            <label for="in_dni">DNI/NIE</label>
-            <input type="text" id="in_dni" pattern="/\d{8}[a-z A-Z]/" class="input-form" />
+            <label for="dni">DNI/NIE</label>
+            <input type="text" id="dni" class="input-form" maxlength="10" placeholder="12345678A" onchange="validarDni(this.value)"/>
         </fieldset>
-        <fieldset class="fieldset_postalcode">
-            <label for="in_postalcode">Postal code</label>
+        <fieldset class="fieldset_postalcode" id="cp">
+            <label for="codigo_postal">Codigo Postal</label>
             <div class="select">
-            <select id="in_postalcode">
-                <option value="38400">38400</option>
-                <option value="38311">38311</option>
-                <option value="38450">38450</option>
-                <option value="otro">Otro</option>
-            </select>
+                <select id="codigo_postal" onchange="otroCp()">
+                    <option>--</option>
+                    <option>38400</option>
+                    <option>38311</option>
+                    <option>38450</option>
+                    <option>Otro</option>
+                </select>
             </div>
         </fieldset>
-        <button class="btn"> submit</button>
-        </form>
-    </div>
-    <script src="assets/js/formulario.js" type="text/javascript"></script>
+        <fieldset>
+            <label for="movil">Telefono Movil</label>
+            <input type="text" id="movil" class="input-form" placeholder="111111111 o +34111111111" onchange="validarMovil(this.value)"/>
+        </fieldset>
+        <fieldset>
+            <label for="fijo">Telefono Fijo</label>
+            <input type="text" id="fijo" class="input-form" placeholder="111111111" onchange="validarFijo(this.value)"/>
+        </fieldset>
+        <fieldset class="fieldset_postalcode">
+            <label for="residente">Residente</label>
+            <div class="select">
+                <select id="residente">
+                    <option>--</option>
+                    <option value="si">Si</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+        </fieldset>
+        <fieldset>
+            <label for="fecha">Fecha de ida</label>
+            <input type="text" id="fecha" class="input-form" placeholder="01/01/2021" onchange="validarFecha(this.value)"/>
+        </fieldset>
+        <fieldset>
+            <label for="num_personas">Numero de personas</label>
+            <input type="number" id="num_personas" class="input-form" onchange="validarPersonas(this.value)"/>
+        </fieldset>
+        <fieldset>
+            <label for="email">Email</label>
+            <input type="text" id="email" class="input-form" placeholder="ejemplo@ejemplo.com" onchange="validarEmail(this.value)"/>
+        </fieldset>
+        <fieldset>
+            <label for="twitter">Usuario twitter</label>
+            <input type="text" id="twitter" class="input-form" placeholder="@usuario" onchange="validarTwitter(this.value)"/>
+        </fieldset>
+        <fieldset>
+            <label for="instagram">Usuario instagram</label>
+            <input type="text" id="instagram" class="input-form" placeholder="usuario"/>
+        </fieldset>
+        <fieldset class="fieldset_postalcode" id="field-vehiculo">
+            <label for="vehiculo">Vehiculo</label>
+            <div class="select">
+                <select id="vehiculo" onchange="datosVehiculo()">
+                    <option>--</option>
+                    <option value="si">Si</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+        </fieldset>
+        <fieldset>
+            <label for="ip">IP</label>
+            <input type="text" id="ip" class="input-form" onchange="validarIp(this.value)"/>
+        </fieldset>
+        <fieldset>
+            <label for="motivo">Motivo</label>
+            <textarea name="textarea" id="motivo" rows="5" cols="90" placeholder="Escriba su motivo" onchange="validarMotivo(this.value)"></textarea>
+        </fieldset>
+        <button type="button" id="boton" class="btn" onclick="guardarDatos()">Enviar</button>
+    </form>
+</div>
+<script src="assets/js/validaciones.js" type="text/javascript"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@ class Formulario {
     ip;
     motivo;
     /**
-     * Constructor de la clase Formulario
+     * Constructor de la clase Validaciones
      * @param {*} nombre de la persona
      * @param {*} apellidos de la persona
      * @param {*} dni de la persona
