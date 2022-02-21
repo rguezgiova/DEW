@@ -33,7 +33,7 @@ class Formulario {
 function inputError(id) {
     document.getElementById(id).classList.remove("valido");
     document.getElementById(id).classList.add("error");
-    document.getElementById("boton").disabled = true;
+    document.getElementById("boton").setAttribute('disabled', 'disabled');
 }
 
 /**
@@ -43,7 +43,7 @@ function inputError(id) {
 function inputValido(id) {
     document.getElementById(id).classList.remove("error");
     document.getElementById(id).classList.add("valido");
-    document.getElementById("boton").disabled = false;
+    document.getElementById("boton").removeAttribute("disabled");
 }
 
 /**
