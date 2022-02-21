@@ -20,6 +20,11 @@ main {
     margin: 0% 25%;
 }
 
+img {
+    width: 50px;
+    height: 50px;
+}
+
 #colores div, .colores div, #input_colores div {
     border-radius: 50px;
     width: 32px;
@@ -63,6 +68,11 @@ main {
 
 .negro {
     background-color: #000000;
+}
+
+
+.gris {
+    background-color: #9b9b9b;
 }
 
 .amarillo {
@@ -130,7 +140,7 @@ main {
     transform: scale(1.10);
 }
 
-#input_colores div, .bolas div {
+#input_colores div, .colores div {
     margin: 10px;
 }
 
@@ -144,4 +154,43 @@ main {
     position: absolute;
     top: 25%;
     left: 41%;
+}
+
+.explicacion {
+    color: white;
+}
+
+.loader-container {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid;
+    color: #3498db;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: loader 1.2s linear infinite;
+}
+
+@keyframes loader {
+    25% {
+        color: #2ecc71;
+    }
+    50% {
+        color: #f1c40f;
+    }
+    75% {
+        color: #e74c3c;
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
