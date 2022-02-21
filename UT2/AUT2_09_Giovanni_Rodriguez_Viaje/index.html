@@ -78,9 +78,17 @@
          */
         function guardarDatos() {
             let errores = document.getElementsByClassName('error');
+            let form = document.querySelector('#form');
+            let empty = 0;
+            Object.values(form.elements).forEach(element => {
+                if (element.value === '' || element.value === '--') {
+                    empty++;
+                }
+            });
 
-            if (errores > 0) {
-                alert('Existen campos erróneos');
+
+            if (errores > 0 || empty > 1) {
+                alert('Existe campos erróneos');
             } else {
                 let tmpCp = document.getElementById('codigo_postal').value;
                 if (tmpCp === 'Otro') {
@@ -115,20 +123,20 @@
     <form class="form" id="form" autocomplete="off" novalidate>
         <fieldset>
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" class="input-form" maxlength="10" onchange="validarNombre(this.value)" required/>
+            <input type="text" id="nombre" class="input-form" maxlength="10" onchange="validarNombre(this.value)"/>
         </fieldset>
         <fieldset class="fieldset_surename">
             <label for="apellidos">Apellidos</label>
-            <input type="text" id="apellidos" class="input-form" maxlength="10" onchange="validarApellidos(this.value)" required/>
+            <input type="text" id="apellidos" class="input-form" maxlength="10" onchange="validarApellidos(this.value)"/>
         </fieldset>
         <fieldset class="fieldset_dni">
             <label for="dni">DNI/NIE</label>
-            <input type="text" id="dni" class="input-form" maxlength="10" placeholder="12345678A" onchange="validarDni(this.value)" required/>
+            <input type="text" id="dni" class="input-form" maxlength="10" placeholder="12345678A" onchange="validarDni(this.value)"/>
         </fieldset>
         <fieldset class="fieldset_postalcode" id="cp">
             <label for="codigo_postal">Codigo Postal</label>
             <div class="select">
-                <select id="codigo_postal" onchange="otroCp()" required>
+                <select id="codigo_postal" onchange="otroCp()">
                     <option>--</option>
                     <option>38400</option>
                     <option>38311</option>
@@ -139,16 +147,16 @@
         </fieldset>
         <fieldset>
             <label for="movil">Telefono Movil</label>
-            <input type="text" id="movil" class="input-form" placeholder="111111111 o +34111111111" onchange="validarMovil(this.value)" required/>
+            <input type="text" id="movil" class="input-form" placeholder="111111111 o +34111111111" onchange="validarMovil(this.value)"/>
         </fieldset>
         <fieldset>
             <label for="fijo">Telefono Fijo</label>
-            <input type="text" id="fijo" class="input-form" placeholder="111111111" onchange="validarFijo(this.value)" required/>
+            <input type="text" id="fijo" class="input-form" placeholder="111111111" onchange="validarFijo(this.value)"/>
         </fieldset>
         <fieldset class="fieldset_postalcode">
             <label for="residente">Residente</label>
             <div class="select">
-                <select id="residente" required>
+                <select id="residente">
                     <option>--</option>
                     <option value="si">Si</option>
                     <option value="no">No</option>
@@ -157,7 +165,7 @@
         </fieldset>
         <fieldset>
             <label for="fecha">Fecha de ida</label>
-            <input type="text" id="fecha" class="input-form" placeholder="01/01/2021" onchange="validarFecha(this.value)" required/>
+            <input type="text" id="fecha" class="input-form" placeholder="01/01/2021" onchange="validarFecha(this.value)"/>
         </fieldset>
         <fieldset>
             <label for="num_personas">Numero de personas</label>
@@ -165,20 +173,20 @@
         </fieldset>
         <fieldset>
             <label for="email">Email</label>
-            <input type="text" id="email" class="input-form" placeholder="ejemplo@ejemplo.com" onchange="validarEmail(this.value)" required/>
+            <input type="text" id="email" class="input-form" placeholder="ejemplo@ejemplo.com" onchange="validarEmail(this.value)"/>
         </fieldset>
         <fieldset>
             <label for="twitter">Usuario twitter</label>
-            <input type="text" id="twitter" class="input-form" placeholder="@usuario" onchange="validarTwitter(this.value)" required/>
+            <input type="text" id="twitter" class="input-form" placeholder="@usuario" onchange="validarTwitter(this.value)"/>
         </fieldset>
         <fieldset>
             <label for="instagram">Usuario instagram</label>
-            <input type="text" id="instagram" class="input-form" placeholder="usuario" required/>
+            <input type="text" id="instagram" class="input-form" placeholder="usuario"/>
         </fieldset>
         <fieldset class="fieldset_postalcode" id="field-vehiculo">
             <label for="vehiculo">Vehiculo</label>
             <div class="select">
-                <select id="vehiculo" onchange="datosVehiculo()" required>
+                <select id="vehiculo" onchange="datosVehiculo()">
                     <option>--</option>
                     <option value="si">Si</option>
                     <option value="no">No</option>
@@ -187,13 +195,13 @@
         </fieldset>
         <fieldset>
             <label for="ip">IP</label>
-            <input type="text" id="ip" class="input-form" onchange="validarIp(this.value)" required/>
+            <input type="text" id="ip" class="input-form" onchange="validarIp(this.value)"/>
         </fieldset>
         <fieldset>
             <label for="motivo">Motivo</label>
-            <textarea name="textarea" id="motivo" rows="5" cols="90" placeholder="Escriba su motivo" onchange="validarMotivo(this.value)" required></textarea>
+            <textarea name="textarea" id="motivo" rows="5" cols="90" placeholder="Escriba su motivo" onchange="validarMotivo(this.value)"></textarea>
         </fieldset>
-        <button id="boton" class="btn" onclick="guardarDatos()">Enviar</button>
+        <button type="button" id="boton" class="btn" onclick="guardarDatos()">Enviar</button>
     </form>
 </div>
 <script src="assets/js/validaciones.js" type="text/javascript"></script>
