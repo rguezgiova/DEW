@@ -78,9 +78,16 @@
          */
         function guardarDatos() {
             let errores = document.getElementsByClassName('error');
-            console.log(errores.length);
+            let form = document.querySelector('#form');
+            let empty = 0;
+            Object.values(form.elements).forEach(element => {
+                if (element.value === '' || element.value === '--') {
+                    empty++;
+                }
+            });
 
-            if (errores > 0) {
+
+            if (errores > 0 || empty > 1) {
                 alert('Existe campos erróneos');
             } else {
                 let tmpCp = document.getElementById('codigo_postal').value;
