@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Home</title>
+    <script>
+        window.onload = () => {
+            drawPage('ugins');
+            createSets();
+        }
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -19,32 +26,24 @@
                         <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="decks.html" id="myDeckA">My Decks</a>
+                        <a class="nav-link" href="decks.html" id="myDeck">My Decks</a>
                     </li>
                     <li id="decks" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Decks</a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a id="wd16" class="dropdown-item" href="#">Welcome Deck 2016</a></li>
+                                <li><a value="wd2016" class="dropdown-item" href="#" onclick="drawPage(this.attributes.value.nodeValue);">Welcome Deck 2016</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a id="wd17" class="dropdown-item" href="#">Welcome Deck 2017</a></li>
+                                <li><a value="wd2017" class="dropdown-item" href="#" onclick="drawPage(this.attributes.value.nodeValue);">Welcome Deck 2017</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a id="ugins" class="dropdown-item" href="#">Ugin's Fate</a></li>
+                                <li><a value="ugins" class="dropdown-item" href="#" onclick="drawPage(this.attributes.value.nodeValue);">Ugin's Fate</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a id="zendikar" class="dropdown-item" href="#">Zendikar Rising Expeditions</a></li>
+                                <li><a value="zendikar" class="dropdown-item" href="#" onclick="drawPage(this.attributes.value.nodeValue);">Zendikar Rising Expeditions</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a id="two" class="dropdown-item" href="#">Introductory Two-Player</a></li>
+                                <li><a value="two" class="dropdown-item" href="#" onclick="drawPage(this.attributes.value.nodeValue);">Introductory Two-Player</a></li>
                             </ul>
-                    </li>
-                    <li id="language" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Language</a>
-                        <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDropdown">
-                            <li><a id="en" class="dropdown-item text-light" href="#">English</a></li>
-                            <li><a id="es" class="dropdown-item text-light" href="#">Español</a></li>
-                        </ul>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
-                    <button id="logout" class="btn btn-outline-secondary text-light" type="submit">Logout</button>
                     <li id="login" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
                         <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
@@ -67,15 +66,55 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid bg-transparent">
+    <div class="container-fluid">
+
         <div class="row">
-            <div class="col-8 ps-5">
-                <div class="row g-4" id="cards"></div>
+            <div class="col-8">
+                <h3 class="ms-3 mt-3 text-center">Select cards</h3>
+                <div class="row">
+                    <div class="col-2 ms-auto me-0 my-auto">
+                        <h5 class="text-center">Filter: </h5>
+                    </div>
+                    <div class="col-2 mx-0 my-auto">
+                        <div class="dropdown" id="filter">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Color</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" onclick="filterSetColor('A')">All</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetColor('W')">White</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetColor('U')">Blue</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetColor('B')">Black</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetColor('R')">Red</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetColor('G')">Green</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetColor('')">Colorless</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-2 ms-0 me-auto my-auto">
+                        <div class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Mana Cost</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" onclick="filterSetCost('A')">All</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetCost(1)">0-1</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetCost(2)">2</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetCost(3)">3</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetCost(4)">4</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetCost(5)">5</a></li>
+                                <li><a class="dropdown-item" onclick="filterSetCost(6)">6+</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="cards">
+
+                </div>
             </div>
-            <div class="col-4 pe-5">
-                <table id="selected" class="table table-sm table-bordered bg-dark bg-opacity-75 text-light">
+
+            <div class="col-4">
+                <h4 class="ms-3 mt-3 text-center">Selected</h4>
+                <table class="table text-center ms-3 mt-3">
                     <thead>
                     <tr>
+                        <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
                         <th scope="col">Quantity</th>
@@ -83,58 +122,56 @@
                         <th scope="col">Total</th>
                     </tr>
                     </thead>
-                    <tbody id="items"></tbody>
+                    <tbody id="items">
+
+                    </tbody>
                     <tfoot>
-                    <tr id="footer" class="text-end">
-                        <th id="empty" scope="row" colspan="5">Empty list - Start selecting cards!</th>
-                        <td id="totalCards" colspan="3"></td>
-                        <td id="totalPrice" colspan="2"><span class="me-4">€</span></td>
-                    </tr>
-                    <tr>
-                        <td id="alert" colspan="5"></td>
+                    <tr id="footer">
+                        <th scope="row" colspan="5" id="empty">Empty list - Start selecting cards!</th>
                     </tr>
                     </tfoot>
                 </table>
             </div>
         </div>
-        <template id="template-footer">
-            <th id="empty" scope="row" colspan="5">Empty list - Start selecting cards!</th>
-        </template>
-        <template id="template-chosen">
-            <tr>
-                <th scope="row">carta1</th>
-                <td>5€</td>
-                <td>2</td>
-                <td id="">
-                    <button class="btn btn-info btn-sm">+</button>
-                    <button class="btn btn-danger btn-sm">-</button>
-                </td>
-                <td><span>10</span> €</td>
-            </tr>
-        </template>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
+            </div>
+
+        </div>
         <template id="template-card">
-            <div class="col-3">
-                <div class="card border-0 bg-secondary bg-opacity-50 text-light round-corner" style="width: 18rem;">
-                    <img src="" class="card-img-top round-corner" alt="card">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text"></p>
-                        </div>
-                        <div class="text-center">
-                            <a id="" class="btn btn-danger">Agregar</a>
-                        </div>
+            <div class="col-3 my-3">
+                <div class="card h-100">
+                    <img src="" class="card-img-top zoom" alt="" onclick="addCard(this.attributes.value.nodeValue)">
+                    <div class="card-body text-center">
+                        <h3 class="card-title" style="height:2em">Name</h3>
+                        <p class="card-text">Price</p>
+                        <a class="btn btn-primary text-bottom" onclick="addCard(this.attributes.value.nodeValue)">Add to Deck</a>
                     </div>
                 </div>
             </div>
         </template>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <template id="template-table">
+            <tr>
+                <td scope="col"><img src="" class="card-img-top zoom2" alt="" style="height:40px; width: 30px;"></td>
+                <td scope="col">Name</td>
+                <td scope="col">Price</td>
+                <td scope="col">Quantity</td>
+                <td scope="col">
+                    <button class="btn btn-secondary w-50" onclick="addCard(this.attributes.value.nodeValue)">+</button>
+                    <button class="btn btn-secondary w-50" onclick="removeCard(this.attributes.value.nodeValue)">-</button>
+                </td>
+                <td scope="col">Total</td>
+            </tr>
+        </template>
     <script src="assets/js/Card.js"></script>
+    <script src="assets/js/CreatureCard.js"></script>
     <script src="assets/js/Deck.js"></script>
-    <script src="assets/js/Request.js"></script>
-    <script src="assets/js/Fetch.js"></script>
-    <script src="assets/js/Draw.js"></script>
-    <script src="assets/js/MyDeck.js"></script>
+    <script src="assets/js/Set.js"></script>
     <script src="assets/js/Index.js"></script>
 </body>
 </html>

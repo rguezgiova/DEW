@@ -1,67 +1,109 @@
 class Deck {
-    /**
-     * Constructor de la clase Deck
-     * @param deck con las cartas seleccionadas
-     */
-    constructor(deck) {
-        this.deck = deck;
+    cards = [];
+
+    getCards() {
+        return this.cards;
     }
 
-    /**
-     * Getters y Setters de la clase Deck
-     */
-    get getDeck() {
-        return this.deck;
+    getDeckLength() {
+        let length = 0;
+        this.cards.forEach(card => {
+            length += card.amount;
+        });
+        return length;
     }
 
     addCard(card) {
-        let exist = false;
-        if (this.checkMax()) {
-            this.deck.forEach(element => {
-                if (element[0].getId === card.getId) {
-                    if (element[1] >= 4) {
-                        alertMaxCardsChosen(card.getName);
-                        exist = true;
-                    } else {
-                        element[1]++;
-                        exist = true;
-                    }
+        const foundedCard = this.cards.find(element => element.cards.id === id);
+        if (this.getDeckLength() < 60) {
+            if (foundedCard === undefined) {
+                this.cards.push({
+                    'amount': 1,
+                    'card': card
+                });
+            } else {
+                if (foundedCard.amount < 4) {
+                    foundedCard.amount++;
+                }
+            }
+        }
+    }
+
+    removeCard(card) {
+        const foundedCard = this.cards.find(element => element.cards.id === id);
+        if (foundedCard.amount > 1) {
+            foundedCard.amount--;
+        } else {
+            this.cards.splice(this.cards.indexOf(foundedCard), 1);
+        }
+    }
+
+    getTotalPrice() {
+        let price = 0;
+        this.cards.forEach(card => {
+            price += card.card.price * card.amount;
+        });
+        return price;
+    }
+
+    serialize() {
+        return JSON.stringify(this);
+    }
+
+    deserialize(data) {
+        const object = JSON.parse(data);
+        object.cards.forEach(card => {
+            for (let i = 0; i < card.amount; i++) {
+                this.addCard(card.card);
+            }
+        });
+    }
+
+    colorFilter(filter) {
+        let tmpArrayCards = [];
+        if (filter === '') {
+            this.cards.forEach(card => {
+                if (card.card.colors.length === 0) {
+                    tmpArrayCards.push(card);
                 }
             });
-            if (!exist) {
-                this.deck.push([card, 1]);
-            }
-        }
-    }
-
-    removeCard(id) {
-        let exist = false;
-        this.deck.forEach(element => {
-            if (element[0].getId === id && element[1] > 1) {
-                element[1]--;
-                exist = true;
-            }
-        });
-        if(!exist) {
-            for (let i = 0; i < this.deck.length; i++) {
-                if (this.deck[i][0].getId === id) {
-                    this.deck.splice(i, 1);
-                }
-
-            }
-        }
-    }
-
-    checkMax() {
-        let count = 0;
-        this.deck.forEach(element => {
-            count += element[1];
-        });
-        if (count === 60) {
-            alertMaxCards();
-            return false;
         } else {
-            return true;
+            this.cards.forEach(card => {
+                if (card.card.colors.includes(filter)) {
+                    tmpArrayCards.push(card);
+                }
+            });
         }
+        return tmpArrayCards;
+    }
+
+    manaCostFilter(filter) {
+        let tmpArrayCards = [];
+        this.cards.forEach(card => {
+            if (filter === 1) {
+                if (card.card.cost <= filter) {
+                    tmpArrayCards.push(card);
+                }
+            } else if (filter === 6) {
+                if (card.card.cost >= filter) {
+                    tmpArrayCards.push(card);
+                }
+            } else {
+                if (card.card.cost === filter) {
+                    tmpArrayCards.push(card);
+                }
+            }
+        });
+        return tmpArrayCards;
+    }
+
+    rarityFilter(filter) {
+        let tmpArrayCards = [];
+        this.cards.forEach(card => {
+            if (card.card.rarity === filter) {
+                tmpArrayCards.push(card);
+            }
+        });
+        return tmpArrayCards;
     }
 }

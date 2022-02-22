@@ -1,224 +1,266 @@
-let lang = 'en';
-let url = 'https://api.scryfall.com/cards/search?order=set&q=lang%3A' + lang + '+e%3Augin&unique=prints';
-let id = 'ugins';
-let deck;
-
-checkLogin();
-createDeck();
-drawChosen(myDeck.getDeck);
+const urlCards = {
+    ugins: 'https://api.scryfall.com/cards/search?order=set&q=e%3Augin&unique=prints',
+    wd2016: 'https://api.scryfall.com/cards/search?order=set&q=e%3Aw16&unique=prints',
+    wd2017: 'https://api.scryfall.com/cards/search?order=set&q=e%3Aw17&unique=prints',
+    zendikar: 'https://api.scryfall.com/cards/search?order=set&q=e%3Azne&unique=prints',
+    two: 'https://api.scryfall.com/cards/search?order=set&q=e%3Aitp&unique=prints'
+}
+let currectDeck;
 
 /**
- * Función que se encarga de verificar si el usuario ha iniciado sesión
- * @returns {boolean} según si ha iniciado o no
+ * Función que recoge la lista de cartas desde la API
+ * @param url para recoger las cartas
+ * @returns {Promise<*>}
  */
-function checkLogin() {
-    if (!localStorage.getItem("user")) {
-        document.getElementById("logout").style.display = "none";
-        document.getElementById("selected").style.visibility ="hidden";
-        document.getElementById("myDeckA").style.display ="none";
-        return false;
-    } else {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("logout").style.display = "inline";
-        document.getElementById("selected").style.visibility ="visible";
-        document.getElementById("myDeckA").style.display ="block";
-        return true;
-    }
+async function fetchData(url) {
+    const response = await (fetch(url));
+    const data = await response.json();
+    return data.data;
 }
 
-/**
- * Función que se encarga de modificar la vista cuando se cierra la sesión
- * Función que se encarga de modificar la vista cuando se cierra la sesión
- */
-function logout() {
-    if (localStorage.getItem("user")) {
-        localStorage.removeItem("user");
-        document.getElementById("logout").style.display = "none";
-        document.getElementById("login").style.display = "inline";
-        document.getElementById("login").style.visibility = "visible";
-        document.getElementById("selected").style.visibility ="hidden";
-        document.getElementById("myDeckA").style.display ="none";
-    }
-}
-
-/**
- * Función que se encarga de comprobar el idioma de las cartas
- * @param lang seleccionado
- */
-function checkLanguage(lang) {
-    changeDeck(lang);
-
-    if (lang === "es") {
-        fetchCards(url).then(data => {
-            data.forEach(carData => {
-                let id = carData.oracle_id;
-                let name = carData.printed_name;
-                let img = carData.image_uris.normal;
-                deck.deck.forEach(element => {
-                    if (element[0].getId === id) {
-                        console.log(name, img);
-                        element[0].setName = name;
-                        element[0].setImg = img;
-                    }
-                });
-            });
-            drawDeck(deck.getDeck);
-        })
-    } else if (lang === "en") {
-        fetchCards(url).then(data => {
-            data.forEach(carData => {
-                let id = carData.oracle_id;
-                let name = carData.name;
-                let img = carData.image_uris.normal;
-                deck.deck.forEach(element => {
-                    if (element[0].getId === id) {
-                        element[0].setName = name;
-                        element[0].setImg = img;
-                    }
-                });
-            });
-            drawDeck(deck.getDeck);
-        })
-    }
-}
-
-/**
- * Función que se encarga de ir construyendo un mazo
- * @param lang seleccionado
- */
-function createDeck(lang = "en") {
-    let cardList = [];
-    fetchCards(url).then(data => {
-        data.forEach(cardData => {
-            let id = cardData.oracle_id;
-            let name = cardData.name;
-            let price = cardData.prices.eur;
-            let set = cardData.set_name;
-            let color;
-            if (cardData.color_identity.length === 0) {
-                color = "X";
+async function createSet(set) {
+    const url = urlCards[set];
+    let arrayCards = [];
+    await fetchData(url).then(cards => {
+        cards.forEach(card => {
+            if (card.type_line.toLowerCase().includes('creature')) {
+                arrayCards.push(new CreatureCard(card.id, card.name, card.prices['eur'], card.set_name, card.colors, card.type_line, card.cmc, card.image_uris.png, card.scryfall_uri, card.rarity, card.power, card.toughness));
             } else {
-                color = cardData.color_identity[0];
+                arrayCards.push(new Card(card.id, card.name, card.prices['eur'], card.set_name, card.colors, card.type_line, card.cmc, card.image_uris.png, card.scryfall_uri, card.rarity))
             }
-            let type = cardData.type_line;
-            let cost = cardData.cmc;
-            let power;
-            let toughness;
-            if (type.includes("Creature")) {
-                power = cardData.power;
-                toughness = cardData.toughness;
-            } else {
-                power = null;
-                toughness = null;
-            }
-            let img = cardData.image_uris.normal;
-            let url = cardData.scryfall_uri;
-            let rarity = cardData.rarity;
-
-            let card = new Card(id, name, price, set, color, type, cost, power, toughness, img, url, rarity);
-            cardList.push([card, 1]);
         });
-        deck = new Deck(cardList);
-        checkLanguage(lang);
-    })
+    });
+    return new Set(arrayCards);
 }
 
-/**
- * Función que se encarga de ir cambiando el mazo seleccionado
- * @param lang seleccionado
- */
-function changeDeck(lang) {
-    switch (id) {
-        case "wd16":
-            url = "https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Aw16&unique=prints";
-            break;
-        case "ugins":
-            url = "https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Augin&unique=prints";
-            break;
-        case "wd17":
-            url = "https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Aw17&unique=prints";
-            break;
-        case "zendikar":
-            url = "https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Azne&unique=prints";
-            break;
-        case "two":
-            url ="https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Aitp&unique=prints";
-            break;
+async function createSets() {
+    let arrayCards = [];
+    for (const url in urlCards) {
+        await fetchData(urlCards[url]).then(cards => {
+            cards.forEach(card => {
+                if (card.type_line.toLowerCase().includes('creature')) {
+                    arrayCards.push(new CreatureCard(card.id, card.name, card.prices['eur'], card.set_name, card.colors, card.type_line, card.cmc, card.image_uris.large, card.scryfall_uri, card.rarity, card.power, card.toughness));
+                } else {
+                    arrayCards.push(new Card(card.id, card.name, card.prices['eur'], card.set_name, card.colors, card.type_line, card.cmc, card.image_uris.large, card.scryfall_uri, card.rarity))
+                }
+            });
+        });
+    }
+    localStorage.setItem('sets', JSON.stringify(new Set(arrayCards)));
+}
+
+function checkEmpty(cards) {
+    if (cards.length > 0) {
+        document.getElementById('empty').style = 'display: none';
+    } else {
+        document.getElementById('empty').style = 'display: flex';
     }
 }
 
-const dropdown = document.getElementById("decks");
-dropdown.addEventListener("click", (e) => {
-    id = e.target.id;
-    if (e.target.id === "aw16") {
-        url = "https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Aw16&unique=prints";
-        createDeck();
-    }
-    if (e.target.id === "augin") {
-        url = "https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Augin&unique=prints";
-        createDeck();
-    }
-    if (e.target.id === "aw17") {
-        url = "https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Aw17&unique=prints";
-        createDeck();
-    }
-    if (e.target.id === "azne") {
-        url = "https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Azne&unique=prints";
-        createDeck();
-    }
-    if (e.target.id === "aitp") {
-        url ="https://api.scryfall.com/cards/search?order=set&q=lang%3A" + lang + "+e%3Aitp&unique=prints";
-        createDeck();
-    }
-    e.stopPropagation();
-});
+function drawPage(set) {
+    createSet(set).then(set => {
+        let cards = set.getCards();
+        let cardsContainer = document.getElementById('cards');
+        cardsContainer.innerHTML = '';
+        const fragment = document.createDocumentFragment();
+        cards.forEach(card => {
+           let templateCards = document.querySelector('#template-card').content;
+            templateCards.querySelectorAll('h3')[0].textContent = card.name;
+            templateCards.querySelectorAll('p')[0].textContent = card.price + '€';
+            templateCards.querySelectorAll('img')[0].src = card.image;
+            templateCards.querySelectorAll('img')[0].setAttribute('value', card.id);
+            templateCards.querySelectorAll('a')[0].setAttribute('value', card.id);
+            const clone = templateCards.cloneNode(true);
+            fragment.appendChild(clone);
+        });
+        cardsContainer.appendChild(fragment);
+        localStorage.setItem('currentSet', JSON.stringify(set));
+    });
+}
 
-const cards = document.getElementById("cards");
-cards.addEventListener("click", (e) => {
-    if (e.target.nodeName === "A") {
-        if (checkLogin()) {
-            addMyDeck(e.target.id);
+function drawSet() {
+    const cards = currectDeck.getCards();
+    let cardsContainer = document.getElementById('items');
+    cardsContainer.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    checkEmpty(cards);
+    cards.forEach(card => {
+       let templateTable = document.querySelector('#template-table').content;
+        templateTable.querySelectorAll('td')[0].firstChild.src = card.card.image;
+        templateTable.querySelectorAll('td')[1].textContent = card.card.name;
+        templateTable.querySelectorAll('td')[2].textContent = card.card.price;
+        templateTable.querySelectorAll('td')[3].textContent = card.amount;
+        templateTable.querySelectorAll('td')[4].querySelectorAll("button")[0].setAttribute("value", card.card.id);
+        templateTable.querySelectorAll('td')[4].querySelectorAll("button")[1].setAttribute("value", card.card.id);
+        templateTable.querySelectorAll('td')[5].textContent = (card.card.price * card.amount).toFixed(2);
+        const clone = templateTable.cloneNode(true);
+        fragment.appendChild(clone);
+    });
+}
+
+function drawHome() {
+    let data = localStorage.getItem('currentDeck');
+    if (data === null) {
+        currectDeck = new Deck();
+    } else {
+        currectDeck = new Deck();
+        currectDeck.deserialize(data);
+    }
+    drawSet();
+}
+
+function drawDetail() {
+    let data = localStorage.getItem('currentDeck');
+    currectDeck = new Deck();
+    currectDeck.deserialize(data);
+    drawCheckDetail();
+}
+
+function drawCheckDetail() {
+    let cards = currectDeck.getCards();
+    let cardsContainer = document.getElementById('cards-detail');
+    cardsContainer.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    cards.forEach(card => {
+        let templateCards = document.querySelector('#template-card').content;
+        templateCards.querySelectorAll('h3')[0].textContent = card.card.name;
+        templateCards.querySelectorAll('p')[0].textContent = card.card.price;
+        templateCards.querySelectorAll('img')[0].src = card.card.image;
+        templateCards.querySelectorAll('a')[0].href = card.card.url;
+        templateCards.querySelectorAll('p')[1].textContent = card.amount;
+        const clone = templateCards.cloneNode(true);
+        fragment.appendChild(clone);
+    });
+    cardsContainer.appendChild(fragment);
+}
+
+function drawSetFilter(cards) {
+    let cardsContainer = document.getElementById('cards');
+    cardsContainer.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    cards.forEach(card => {
+        let cardTemplate = document.querySelector('#template-card').content;
+        cardTemplate.querySelectorAll('h3')[0].textContent = card.name;
+        cardTemplate.querySelectorAll('p')[0].textContent = card.price;
+        cardTemplate.querySelectorAll('img')[0].src = card.image;
+        cardTemplate.querySelectorAll('img')[0].setAttribute('value', card.id);
+        cardTemplate.querySelectorAll('a')[0].setAttribute('value', card.id);
+        const clone = cardTemplate.cloneNode(true);
+        fragment.appendChild(clone);
+    });
+    cardsContainer.appendChild(fragment);
+}
+
+function drawDeckFilter(cards) {
+    let cardsContainer = document.getElementById('cards-detail');
+    cardsContainer.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    cards.forEach(card => {
+       let templateCards = document.querySelector('#template-card').content;
+        templateCards.querySelectorAll('h3')[0].textContent = card.card.name;
+        templateCards.querySelectorAll('p')[0].textContent = card.card.price;
+        templateCards.querySelectorAll('img')[0].src = card.card.image;
+        templateCards.querySelectorAll('a')[0].href = card.card.url;
+        templateCards.querySelectorAll('p')[1].textContent = card.amount;
+        const clone = templateCards.cloneNode(true);
+        fragment.appendChild(clone);
+    });
+    cardsContainer.appendChild(fragment);
+}
+
+function addCard(id) {
+    const data = JSON.parse(localStorage.getItem('currentSet'));
+    const set = new Set(data.cards);
+    currectDeck.add(set.getCard(id));
+    localStorage.setItem('currentDeck', currectDeck.serialize());
+    drawSet();
+}
+
+function removeCard(id)  {
+    const data = JSON.parse(localStorage.getItem('sets'));
+    const set = new Set(data.cards);
+    currectDeck.remove(set.getCard(id));
+    localStorage.setItem('currentDeck', currectDeck.serialize());
+    drawSet();
+}
+
+function colorFilterSet(filter) {
+    const data = JSON.parse(localStorage.getItem('currentDeck'));
+    const set = new Set(data.cards);
+    let cardFilter;
+    if (filter === 'A') {
+        cardFilter = set.getCards();
+    } else {
+        cardFilter = set.colorFilter(filter);
+    }
+    drawSetFilter(filter);
+}
+
+function manaCostFilterSet(filter) {
+    const data = JSON.parse(localStorage.getItem('currentDeck'));
+    const set = new Set(data.cards);
+    let cardFilter;
+    if (filter === 'A') {
+        cardFilter = set.getCards();
+    } else {
+        cardFilter = set.manaCostFilter(filter);
+    }
+    drawSetFilter(filter);
+}
+
+function colorFilterDeck(filter) {
+    let data = localStorage.getItem('currentDeck');
+    let deck;
+    let cardFilter;
+    if (data === null) {
+        deck = new Deck();
+        cardFilter = deck.getCards();
+    } else {
+        deck = new Deck();
+        deck.deserialize(data);
+        if (filter === 'A') {
+            cardFilter = deck.getCards();
         } else {
-            alert("Login please.")
+            cardFilter = deck.colorFilter(filter);
         }
+        drawDeckFilter(cardFilter);
     }
-    e.stopPropagation();
-});
+}
 
-const items = document.getElementById("items");
-items.addEventListener("click", (e) => {
-    if (e.target.nodeName === "BUTTON") {
-        if (e.target.className.includes("info")) {
-            addMyDeck(e.target.parentNode.id);
+function manaCostFilterDeck(filter) {
+    let data = localStorage.getItem('currentDeck');
+    let deck;
+    let cardFilter;
+    if (data === null) {
+        deck = new Deck();
+        cardFilter = deck.getCards();
+    } else {
+        deck = new Deck();
+        deck.deserialize(data);
+        if (filter === 'A') {
+            cardFilter = deck.getCards();
+        } else {
+            cardFilter = deck.manaCostFilter(filter);
         }
-        if (e.target.className.includes("danger")) {
-            removeMyDeck(e.target.parentNode.id);
+        drawDeckFilter(cardFilter)
+    }
+}
+
+function rarityFilterDeck(filter) {
+    let data = localStorage.getItem('currentDeck');
+    let deck;
+    let cardFilter;
+    if (data === null) {
+        deck = new Deck();
+        cardFilter = deck.getCards();
+    } else {
+        deck = new Deck();
+        deck.deserialize(data);
+        if(filter === 'A') {
+            cardFilter = deck.getCards();
+        } else {
+            cardFilter = deck.rarityFilter(filter);
         }
+        drawDeckFilter(cardFilter);
     }
-    e.stopPropagation();
-});
-
-const language = document.getElementById("language");
-language.addEventListener("click", (e) => {
-    lang = e.target.id;
-    checkLanguage(e.target.id);
-    console.log(e.target.id);
-    e.stopPropagation();
-});
-
-const loginButton = document.getElementById("login-btn");
-loginButton.addEventListener("click", (e) => {
-    let user = document.getElementById("user").value;
-    let password = document.getElementById("password").value;
-    console.log("datos->", user, password);
-    if (user !== "" && user != null && password !== "" && password != null) {
-        login(user, password);
-    }
-    e.stopPropagation();
-});
-
-const logoutButton = document.getElementById("logout");
-logoutButton.addEventListener("click", (e) => {
-    logout();
-    e.stopPropagation();
-});
+}
