@@ -10,6 +10,7 @@
         window.onload = () => {
             drawPage('ugins');
             createSets();
+            drawHome();
         }
     </script>
 </head>
@@ -67,10 +68,8 @@
         </div>
     </nav>
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-8">
-                <h3 class="ms-3 mt-3 text-center">Select cards</h3>
                 <div class="row">
                     <div class="col-2 ms-auto me-0 my-auto">
                         <h5 class="text-center">Filter: </h5>
@@ -79,13 +78,13 @@
                         <div class="dropdown" id="filter">
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Color</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" onclick="filterSetColor('A')">All</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetColor('W')">White</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetColor('U')">Blue</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetColor('B')">Black</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetColor('R')">Red</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetColor('G')">Green</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetColor('')">Colorless</a></li>
+                                <li><a class="dropdown-item" onclick="colorFilterSet('A')">All</a></li>
+                                <li><a class="dropdown-item" onclick="colorFilterSet('W')">White</a></li>
+                                <li><a class="dropdown-item" onclick="colorFilterSet('U')">Blue</a></li>
+                                <li><a class="dropdown-item" onclick="colorFilterSet('B')">Black</a></li>
+                                <li><a class="dropdown-item" onclick="colorFilterSet('R')">Red</a></li>
+                                <li><a class="dropdown-item" onclick="colorFilterSet('G')">Green</a></li>
+                                <li><a class="dropdown-item" onclick="colorFilterSet('')">Colorless</a></li>
                             </ul>
                         </div>
                     </div>
@@ -93,13 +92,13 @@
                         <div class="dropdown">
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Mana Cost</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" onclick="filterSetCost('A')">All</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetCost(1)">0-1</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetCost(2)">2</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetCost(3)">3</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetCost(4)">4</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetCost(5)">5</a></li>
-                                <li><a class="dropdown-item" onclick="filterSetCost(6)">6+</a></li>
+                                <li><a class="dropdown-item" onclick="manaCostFilterSet('A')">All</a></li>
+                                <li><a class="dropdown-item" onclick="manaCostFilterSet(1)">0-1</a></li>
+                                <li><a class="dropdown-item" onclick="manaCostFilterSet(2)">2</a></li>
+                                <li><a class="dropdown-item" onclick="manaCostFilterSet(3)">3</a></li>
+                                <li><a class="dropdown-item" onclick="manaCostFilterSet(4)">4</a></li>
+                                <li><a class="dropdown-item" onclick="manaCostFilterSet(5)">5</a></li>
+                                <li><a class="dropdown-item" onclick="manaCostFilterSet(6)">6+</a></li>
                             </ul>
                         </div>
                     </div>
@@ -110,11 +109,9 @@
             </div>
 
             <div class="col-4">
-                <h4 class="ms-3 mt-3 text-center">Selected</h4>
                 <table class="table text-center ms-3 mt-3">
                     <thead>
                     <tr>
-                        <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
                         <th scope="col">Quantity</th>
@@ -133,20 +130,10 @@
                 </table>
             </div>
         </div>
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>Some text in the Modal..</p>
-            </div>
-
-        </div>
         <template id="template-card">
             <div class="col-3 my-3">
                 <div class="card h-100">
-                    <img src="" class="card-img-top zoom" alt="" onclick="addCard(this.attributes.value.nodeValue)">
+                    <img src="" class="card-img-top" alt="" onclick="addCard(this.attributes.value.nodeValue)">
                     <div class="card-body text-center">
                         <h3 class="card-title" style="height:2em">Name</h3>
                         <p class="card-text">Price</p>
@@ -157,7 +144,6 @@
         </template>
         <template id="template-table">
             <tr>
-                <td scope="col"><img src="" class="card-img-top zoom2" alt="" style="height:40px; width: 30px;"></td>
                 <td scope="col">Name</td>
                 <td scope="col">Price</td>
                 <td scope="col">Quantity</td>
@@ -166,6 +152,17 @@
                     <button class="btn btn-secondary w-50" onclick="removeCard(this.attributes.value.nodeValue)">-</button>
                 </td>
                 <td scope="col">Total</td>
+            </tr>
+        </template>
+        <template id="table-template-final">
+            <tr>
+                <hidden></hidden>
+                <td scope="col"></td>
+                <td scope="col"></td>
+                <td scope="col"></td>
+                <td scope="col"></td>
+                <td scope="col"></td>
+                <td scope="col"></td>
             </tr>
         </template>
     <script src="assets/js/Card.js"></script>

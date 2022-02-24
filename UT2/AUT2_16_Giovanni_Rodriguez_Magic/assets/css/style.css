@@ -28,6 +28,10 @@ a:hover {
     text-decoration: none;
 }
 
+h5 {
+    color: white;
+}
+
 .card img:hover {
     transform: scale(1.1);
 }

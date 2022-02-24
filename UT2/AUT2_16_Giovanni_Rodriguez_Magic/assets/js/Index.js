@@ -1,11 +1,11 @@
-const urlCards = {
+const urls = {
     ugins: 'https://api.scryfall.com/cards/search?order=set&q=e%3Augin&unique=prints',
     wd2016: 'https://api.scryfall.com/cards/search?order=set&q=e%3Aw16&unique=prints',
     wd2017: 'https://api.scryfall.com/cards/search?order=set&q=e%3Aw17&unique=prints',
     zendikar: 'https://api.scryfall.com/cards/search?order=set&q=e%3Azne&unique=prints',
     two: 'https://api.scryfall.com/cards/search?order=set&q=e%3Aitp&unique=prints'
 }
-let currectDeck;
+let currentDeck;
 
 /**
  * Función que recoge la lista de cartas desde la API
@@ -19,14 +19,14 @@ async function fetchData(url) {
 }
 
 async function createSet(set) {
-    const url = urlCards[set];
+    const url = urls[set];
     let arrayCards = [];
     await fetchData(url).then(cards => {
         cards.forEach(card => {
             if (card.type_line.toLowerCase().includes('creature')) {
-                arrayCards.push(new CreatureCard(card.id, card.name, card.prices['eur'], card.set_name, card.colors, card.type_line, card.cmc, card.image_uris.png, card.scryfall_uri, card.rarity, card.power, card.toughness));
+                arrayCards.push(new CreatureCard(card.id, card.name, card.prices['eur'], card.set_name, card.color, card.type_line, card.cmc, card.image_uris.png, card.scryfall_uri, card.rarity, card.power, card.toughness));
             } else {
-                arrayCards.push(new Card(card.id, card.name, card.prices['eur'], card.set_name, card.colors, card.type_line, card.cmc, card.image_uris.png, card.scryfall_uri, card.rarity))
+                arrayCards.push(new Card(card.id, card.name, card.prices['eur'], card.set_name, card.color, card.type_line, card.cmc, card.image_uris.png, card.scryfall_uri, card.rarity))
             }
         });
     });
@@ -35,25 +35,26 @@ async function createSet(set) {
 
 async function createSets() {
     let arrayCards = [];
-    for (const url in urlCards) {
-        await fetchData(urlCards[url]).then(cards => {
+    for (const url in urls) {
+        await fetchData(urls[url]).then(cards => {
             cards.forEach(card => {
                 if (card.type_line.toLowerCase().includes('creature')) {
-                    arrayCards.push(new CreatureCard(card.id, card.name, card.prices['eur'], card.set_name, card.colors, card.type_line, card.cmc, card.image_uris.large, card.scryfall_uri, card.rarity, card.power, card.toughness));
+                    arrayCards.push(new CreatureCard(card.id, card.name, card.prices.eur, card.set_name, card.color, card.type_line, card.cmc, card.image_uris.png, card.scryfall_uri, card.rarity, card.power, card.toughness));
                 } else {
-                    arrayCards.push(new Card(card.id, card.name, card.prices['eur'], card.set_name, card.colors, card.type_line, card.cmc, card.image_uris.large, card.scryfall_uri, card.rarity))
+                    arrayCards.push(new Card(card.id, card.name, card.prices.eur, card.set_name, card.color, card.type_line, card.cmc, card.image_uris.png, card.scryfall_uri, card.rarity))
                 }
             });
         });
     }
-    localStorage.setItem('sets', JSON.stringify(new Set(arrayCards)));
+    let sets = new Set(arrayCards);
+    localStorage.setItem('sets', JSON.stringify(sets));
 }
 
 function checkEmpty(cards) {
     if (cards.length > 0) {
-        document.getElementById('empty').style = 'display: none';
+        document.getElementById('empty').style.display = 'none';
     } else {
-        document.getElementById('empty').style = 'display: flex';
+        document.getElementById('empty').style.display = 'flex';
     }
 }
 
@@ -78,46 +79,52 @@ function drawPage(set) {
     });
 }
 
-function drawSet() {
-    const cards = currectDeck.getCards();
+function drawDeck() {
     let cardsContainer = document.getElementById('items');
     cardsContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
+    const cards = currentDeck.getCards();
     checkEmpty(cards);
     cards.forEach(card => {
        let templateTable = document.querySelector('#template-table').content;
-        templateTable.querySelectorAll('td')[0].firstChild.src = card.card.image;
-        templateTable.querySelectorAll('td')[1].textContent = card.card.name;
-        templateTable.querySelectorAll('td')[2].textContent = card.card.price;
-        templateTable.querySelectorAll('td')[3].textContent = card.amount;
-        templateTable.querySelectorAll('td')[4].querySelectorAll("button")[0].setAttribute("value", card.card.id);
-        templateTable.querySelectorAll('td')[4].querySelectorAll("button")[1].setAttribute("value", card.card.id);
-        templateTable.querySelectorAll('td')[5].textContent = (card.card.price * card.amount).toFixed(2);
+        templateTable.querySelectorAll('td')[0].textContent = card.card.name;
+        templateTable.querySelectorAll('td')[1].textContent = card.card.price;
+        templateTable.querySelectorAll('td')[2].textContent = card.amount;
+        templateTable.querySelectorAll('td')[3].querySelectorAll('button')[0].setAttribute('value', card.card.id);
+        templateTable.querySelectorAll('td')[3].querySelectorAll('button')[1].setAttribute('value', card.card.id);
+        templateTable.querySelectorAll('td')[4].textContent = (card.card.price * card.amount).toFixed(2);
         const clone = templateTable.cloneNode(true);
         fragment.appendChild(clone);
     });
+    let tableTemplateFinal = document.querySelector('#table-template-final').content;
+    tableTemplateFinal.querySelectorAll('td')[0].textContent = 'Total: ';
+    tableTemplateFinal.querySelectorAll('td')[3].textContent = currentDeck.getDeckLength();
+    tableTemplateFinal.querySelectorAll('td')[5].textContent = currentDeck.getTotalPrice().toFixed(2);
+    const clone = tableTemplateFinal.cloneNode(true);
+    fragment.appendChild(clone);
+    cardsContainer.appendChild(fragment);
 }
 
 function drawHome() {
     let data = localStorage.getItem('currentDeck');
-    if (data === null) {
-        currectDeck = new Deck();
+    if (data == null) {
+        currentDeck = new Deck();
     } else {
-        currectDeck = new Deck();
-        currectDeck.deserialize(data);
+        currentDeck = new Deck();
+        currentDeck.deserialize(data);
     }
-    drawSet();
+    drawDeck();
 }
 
 function drawDetail() {
     let data = localStorage.getItem('currentDeck');
-    currectDeck = new Deck();
-    currectDeck.deserialize(data);
-    drawCheckDetail();
+    currentDeck = new Deck();
+    currentDeck.deserialize(data);
+    drawDeckDetail();
 }
 
-function drawCheckDetail() {
-    let cards = currectDeck.getCards();
+function drawDeckDetail() {
+    let cards = currentDeck.getCards();
     let cardsContainer = document.getElementById('cards-detail');
     cardsContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
@@ -170,22 +177,24 @@ function drawDeckFilter(cards) {
 
 function addCard(id) {
     const data = JSON.parse(localStorage.getItem('currentSet'));
+    console.log(data)
     const set = new Set(data.cards);
-    currectDeck.add(set.getCard(id));
-    localStorage.setItem('currentDeck', currectDeck.serialize());
-    drawSet();
+    console.log(set.getCard(id));
+    currentDeck.add(set.getCard(id));
+    localStorage.setItem('currentDeck', currentDeck.serialize());
+    drawDeck();
 }
 
 function removeCard(id)  {
     const data = JSON.parse(localStorage.getItem('sets'));
     const set = new Set(data.cards);
-    currectDeck.remove(set.getCard(id));
-    localStorage.setItem('currentDeck', currectDeck.serialize());
-    drawSet();
+    currentDeck.remove(set.getCard(id));
+    localStorage.setItem('currentDeck', currentDeck.serialize());
+    drawDeck();
 }
 
 function colorFilterSet(filter) {
-    const data = JSON.parse(localStorage.getItem('currentDeck'));
+    const data = JSON.parse(localStorage.getItem('currentSet'));
     const set = new Set(data.cards);
     let cardFilter;
     if (filter === 'A') {
@@ -193,11 +202,11 @@ function colorFilterSet(filter) {
     } else {
         cardFilter = set.colorFilter(filter);
     }
-    drawSetFilter(filter);
+    drawSetFilter(cardFilter);
 }
 
 function manaCostFilterSet(filter) {
-    const data = JSON.parse(localStorage.getItem('currentDeck'));
+    const data = JSON.parse(localStorage.getItem('currentSet'));
     const set = new Set(data.cards);
     let cardFilter;
     if (filter === 'A') {
@@ -205,7 +214,7 @@ function manaCostFilterSet(filter) {
     } else {
         cardFilter = set.manaCostFilter(filter);
     }
-    drawSetFilter(filter);
+    drawSetFilter(cardFilter);
 }
 
 function colorFilterDeck(filter) {
